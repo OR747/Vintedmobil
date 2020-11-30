@@ -8,9 +8,16 @@ export default function SearchScreen() {
     <View>
       <Text>Welcome to Search!</Text>
       <Button
-        title="Go to Sort"
+        title="Trier par"
         onPress={() => {
           navigation.navigate("Sort");
+        }}
+      />
+
+      <Button
+        title="Prix"
+        onPress={() => {
+          navigation.navigate("Price");
         }}
       />
     </View>

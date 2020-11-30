@@ -2,11 +2,11 @@ import React from "react";
 import { useNavigation } from "@react-navigation/core";
 import { Button, Text, View, StyleSheet } from "react-native";
 
-export default function SortScreen() {
+export default function PriceScreen() {
   const navigation = useNavigation();
   return (
     <View style={styles.container0}>
-      <Text>Welcome to Sort!</Text>
+      <Text>Welcome to Price!</Text>
       <Button
         title="Afficher les résultats"
         onPress={() => {

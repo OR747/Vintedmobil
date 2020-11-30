@@ -27,6 +27,7 @@ import SearchScreen from "./containers/SearchScreen";
 import SortScreen from "./containers/SortScreen";
 import PublishScreen from "./containers/PublishScreen";
 import ProfilScreen from "./containers/ProfilScreen";
+import PriceScreen from "./containers/PriceScreen";
 
 //StackNavigator and BottomNavigator
 
@@ -169,6 +170,14 @@ export default function App() {
                         }}
                       >
                         {() => <SortScreen />}
+                      </Stack.Screen>
+                      <Stack.Screen
+                        name="Price"
+                        options={{
+                          headerTitle: () => <Logo />,
+                        }}
+                      >
+                        {() => <PriceScreen />}
                       </Stack.Screen>
                     </Stack.Navigator>
                   )}
