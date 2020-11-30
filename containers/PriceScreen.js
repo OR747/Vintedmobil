@@ -10,7 +10,7 @@ export default function PriceScreen() {
       <Button
         title="Afficher les résultats"
         onPress={() => {
-          navigation.navigate("Search");
+          navigation.navigate("Recherche");
         }}
       />
     </View>

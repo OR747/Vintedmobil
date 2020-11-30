@@ -77,7 +77,13 @@ export default function App() {
     <NavigationContainer>
       {isLoading ? null : userToken === null ? (
         <Stack.Navigator>
-          <Stack.Screen name="HomeLogin">
+          <Stack.Screen
+            name="HomeLogin"
+            options={{
+              headerStyle: { backgroundColor: "white" },
+              headerTitle: () => <Logo />,
+            }}
+          >
             {() => <HomeLoginScreen setToken={setToken} setId={setId} />}
           </Stack.Screen>
 
@@ -88,7 +94,10 @@ export default function App() {
             {() => <SignUpScreen setToken={setToken} />}
           </Stack.Screen>
 
-          <Stack.Screen name="Login">
+          <Stack.Screen
+            name="Login"
+            options={{ header: () => null, animationEnabled: false }}
+          >
             {() => <LoginScreen setToken={setToken} setId={setId} />}
           </Stack.Screen>
         </Stack.Navigator>

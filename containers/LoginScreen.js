@@ -24,7 +24,7 @@ export default function LoginScreen({ setToken }) {
         </View>
         <View style={styles.input2}>
           <TextInput
-            placeholder="Password"
+            placeholder="Mot de passe"
             onChangeText={(text) => {
               setPassword(text);
             }}
@@ -32,20 +32,20 @@ export default function LoginScreen({ setToken }) {
           />
         </View>
 
-        <Button
-          title="Login"
-          onPress={async () => {
-            const userToken = "secret-token";
-            setToken(userToken);
-          }}
-        />
-        <TouchableOpacity
-          onPress={() => {
-            navigation.navigate("SignUp");
-          }}
-        >
-          <Text>Create an account</Text>
-        </TouchableOpacity>
+        <View style={styles.button}>
+          <Button title="Se connecter" color="white" onPress={""} />
+        </View>
+        <View style={styles.touch}>
+          <TouchableOpacity
+            onPress={() => {
+              navigation.navigate("SignUp");
+            }}
+          >
+            <Text style={styles.touchstyle}>
+              Tu as oublié ton mot de passe?
+            </Text>
+          </TouchableOpacity>
+        </View>
       </View>
     </View>
   );
@@ -55,21 +55,29 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "#FFFFFF",
     //justifyContent: "center",
+    paddingHorizontal: 15,
   },
 
   input1: {
     marginTop: 120,
-    borderBottomColor: "#FFBAC0",
-    borderBottomWidth: 2,
-    marginLeft: 30,
-    marginRight: 30,
+    borderBottomColor: "#D7D7D7",
+    borderBottomWidth: 1,
   },
   input2: {
     marginTop: 50,
-    borderBottomColor: "#FFBAC0",
-    borderBottomWidth: 2,
-    marginLeft: 30,
-    marginRight: 30,
+    borderBottomColor: "#D7D7D7",
+    borderBottomWidth: 1,
     flexWrap: "wrap",
   },
+  button: {
+    backgroundColor: "#29b6be",
+    width: "100%",
+    height: 45,
+    marginTop: 90,
+    borderRadius: 4,
+    borderWidth: 2,
+    borderColor: "#29b6be",
+  },
+  touch: { marginTop: 30, alignItems: "center" },
+  touchstyle: { color: "#29b6be" },
 });
