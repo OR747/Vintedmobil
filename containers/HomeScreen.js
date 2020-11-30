@@ -2,15 +2,15 @@ import React from "react";
 import { useNavigation } from "@react-navigation/core";
 import { Button, Text, View } from "react-native";
 
-export default function OfferScreen() {
+export default function HomeScreen() {
   const navigation = useNavigation();
   return (
     <View>
-      <Text>Welcome to Offer!</Text>
+      <Text>Welcome to VINTED Home!</Text>
       <Button
-        title="Go to Home"
+        title="Go to Offer"
         onPress={() => {
-          navigation.navigate("Home", { userId: 123 });
+          navigation.navigate("Offer", { userId: 123 });
         }}
       />
     </View>
