@@ -1,16 +1,37 @@
 import React from "react";
 import { useNavigation } from "@react-navigation/core";
-import { Button, Text, TextInput, View, TouchableOpacity } from "react-native";
+import {
+  Button,
+  Text,
+  TextInput,
+  View,
+  TouchableOpacity,
+  StyleSheet,
+} from "react-native";
 
 export default function LoginScreen({ setToken }) {
   const navigation = useNavigation();
   return (
-    <View>
+    <View style={styles.container}>
       <View>
-        <Text>Name: </Text>
-        <TextInput placeholder="Username" />
-        <Text>Password: </Text>
-        <TextInput placeholder="Password" secureTextEntry={true} />
+        <View style={styles.input1}>
+          <TextInput
+            placeholder="Identifiant ou adresse email"
+            onChangeText={(text) => {
+              setEmail(text);
+            }}
+          />
+        </View>
+        <View style={styles.input2}>
+          <TextInput
+            placeholder="Password"
+            onChangeText={(text) => {
+              setPassword(text);
+            }}
+            secureTextEntry={true}
+          />
+        </View>
+
         <Button
           title="Login"
           onPress={async () => {
@@ -29,3 +50,26 @@ export default function LoginScreen({ setToken }) {
     </View>
   );
 }
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: "#FFFFFF",
+    //justifyContent: "center",
+  },
+
+  input1: {
+    marginTop: 120,
+    borderBottomColor: "#FFBAC0",
+    borderBottomWidth: 2,
+    marginLeft: 30,
+    marginRight: 30,
+  },
+  input2: {
+    marginTop: 50,
+    borderBottomColor: "#FFBAC0",
+    borderBottomWidth: 2,
+    marginLeft: 30,
+    marginRight: 30,
+    flexWrap: "wrap",
+  },
+});
