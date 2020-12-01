@@ -14,12 +14,13 @@ import axios from "axios";
 export default function LoginScreen({ setToken, setId }) {
   const navigation = useNavigation();
   const [email, setEmail] = useState("");
-  // const [userName, setUserName]= useState("");
-  const [passwaord, setPassword] = useState("");
+  // const [username, setUsername]= useState("");
+  const [password, setPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState(null);
-
+  console.log("email", email);
+  console.log("password", password);
   const handleSubmit = async () => {
-    if (email && passwaord) {
+    if (email && password) {
       console.log("on passe à la suite");
       try {
         const response = await axios.post(

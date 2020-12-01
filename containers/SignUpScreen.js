@@ -14,13 +14,15 @@ import axios from "axios";
 
 export default function SignUpScreen({ setToken }) {
   const navigation = useNavigation();
-  const [userName, setUserName] = useState();
-  const [email, setEmail] = useState();
-  const [password, setPassword] = useState();
+  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState(null);
-
+  // console.log("email", email);
+  // console.log("password", password);
+  // console.log("username", username);
   const handleSubmit = async () => {
-    if (email && userName && password) {
+    if (email && username && password) {
       console.log("on passe à la suite");
 
       try {
@@ -62,7 +64,7 @@ export default function SignUpScreen({ setToken }) {
             <TextInput
               placeholder="Nom d'utilisateur"
               onChangeText={(text) => {
-                setUserName(text);
+                setUsername(text);
               }}
             />
           </View>
