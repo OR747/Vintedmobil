@@ -188,7 +188,7 @@ export default function App() {
                           headerTitle: () => <Logo />,
                         }}
                       >
-                        {() => <PriceScreen />}
+                        {() => <PriceScreen setToken={setToken} />}
                       </Stack.Screen>
                     </Stack.Navigator>
                   )}
