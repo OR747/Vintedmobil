@@ -84,7 +84,7 @@ export default function App() {
               headerTitle: () => <Logo />,
             }}
           >
-            {() => <HomeLoginScreen setToken={setToken} setId={setId} />}
+            {() => <HomeLoginScreen />}
           </Stack.Screen>
 
           <Stack.Screen

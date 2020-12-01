@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   Button,
   Text,
@@ -9,57 +9,105 @@ import {
   Image,
 } from "react-native";
 import { useNavigation } from "@react-navigation/core";
+import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
+import axios from "axios";
+
 export default function SignUpScreen({ setToken }) {
   const navigation = useNavigation();
+  const [userName, setUserName] = useState();
+  const [email, setEmail] = useState();
+  const [password, setPassword] = useState();
+  const [errorMessage, setErrorMessage] = useState(null);
+
+  const handleSubmit = async () => {
+    if (email && userName && password) {
+      console.log("on passe à la suite");
+
+      try {
+        const response = await axios.post(
+          "https://lereacteur-vinted-api.herokuapp.com/user/signup",
+          // "http://localhost:3000/user/signup",
+          {
+            email,
+            username,
+            password,
+          }
+        );
+
+        console.log(response.data);
+        if (response.data.token) {
+          setToken(response.data.token);
+          navigation.navigate("Home");
+        } else {
+          alert("An error occurred");
+        }
+      } catch (error) {
+        alert("catch");
+        console.log(Object.keys(error)); // affiche les clés de l'objet error
+        console.log(error.response.data.error); // Message du type : This email already has an account.
+        console.log(error.response.status); // 400 par exemple
+
+        setErrorMessage(error.response.data.error);
+      }
+    } else {
+      setErrorMessage("Veuillez remplir tous les champs");
+    }
+  };
+
   return (
     <View style={styles.container0}>
-      <View>
-        <View style={styles.input1}>
-          <TextInput
-            placeholder="Nom d'utilisateur"
-            onChangeText={(text) => {
-              setUsername(text);
-            }}
-          />
-        </View>
-        <View style={styles.input1}>
-          <TextInput
-            placeholder="Email"
-            onChangeText={(text) => {
-              setEmail(text);
-            }}
-          />
-        </View>
+      <KeyboardAwareScrollView>
+        <View>
+          <View style={styles.input1}>
+            <TextInput
+              placeholder="Nom d'utilisateur"
+              onChangeText={(text) => {
+                setUserName(text);
+              }}
+            />
+          </View>
+          <View style={styles.input1}>
+            <TextInput
+              placeholder="Email"
+              onChangeText={(text) => {
+                setEmail(text);
+              }}
+            />
+          </View>
 
-        <View style={styles.input2}>
-          <TextInput
-            placeholder="Mot de passe"
-            onChangeText={(text) => {
-              setPassword(text);
-            }}
-            secureTextEntry={true}
+          <View style={styles.input2}>
+            <TextInput
+              placeholder="Mot de passe"
+              onChangeText={(text) => {
+                setPassword(text);
+              }}
+              secureTextEntry={true}
+            />
+          </View>
+          <Image
+            style={styles.img1}
+            source={require("../assets/conditions.png")}
+            resizeMode="contain"
           />
+          <View style={styles.button}>
+            <Button title="S'inscrire" color="white" onPress={handleSubmit} />
+          </View>
+          <View style={styles.touch}>
+            <TouchableOpacity
+              onPress={() => {
+                navigation.navigate("Login");
+              }}
+            >
+              <Text style={styles.touchstyle}>
+                Vous avez peut-être un compte ? Login
+              </Text>
+            </TouchableOpacity>
+          </View>
+          <View style={styles.errorView}>
+            <Text style={styles.error}>{errorMessage}</Text>
+          </View>
         </View>
-        <Image
-          style={styles.img1}
-          source={require("../assets/conditions.png")}
-          resizeMode="contain"
-        />
-        <View style={styles.button}>
-          <Button title="S'inscrire" color="white" onPress={""} />
-        </View>
-        <View style={styles.touch}>
-          <TouchableOpacity
-            onPress={() => {
-              navigation.navigate("Login");
-            }}
-          >
-            <Text style={styles.touchstyle}>
-              Vous avez peut-être un compte ? Login
-            </Text>
-          </TouchableOpacity>
-        </View>
-      </View>
+      </KeyboardAwareScrollView>
     </View>
   );
 }
@@ -103,4 +151,16 @@ const styles = StyleSheet.create({
   },
   touch: { marginTop: 30, alignItems: "center" },
   touchstyle: { color: "#29b6be" },
+  error: {
+    fontSize: 15,
+    color: "red",
+    marginLeft: 50,
+  },
+  errorView: {
+    height: 30,
+    backgroundColor: "white",
+    width: 300,
+    marginTop: 60,
+    marginLeft: 60,
+  },
 });
