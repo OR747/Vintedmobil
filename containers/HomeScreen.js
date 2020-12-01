@@ -7,6 +7,8 @@ import {
   FlatList,
   ActivityIndicator,
   StyleSheet,
+  Image,
+  TouchableOpacity,
 } from "react-native";
 import axios from "axios";
 
@@ -36,13 +38,8 @@ export default function HomeScreen() {
     <ActivityIndicator size="large" color="#29b6be" />
   ) : (
     <View style={styles.container}>
-      <View>
-        <Text style={{ color: "black", fontSize: 20 }}>
-          {data.product_price}€
-        </Text>
-      </View>
       <FlatList
-        data={data}
+        data={data.offers}
         renderItem={({ item }) => {
           return (
             <TouchableOpacity
@@ -53,16 +50,38 @@ export default function HomeScreen() {
                 });
               }}
             >
+              <View style={styles.image}>
+                <Image
+                  source={{
+                    uri: item.owner.account.avatar.url,
+                  }}
+                  resizeMode="cover"
+                  style={styles.img}
+                ></Image>
+              </View>
+              <View>
+                <Text style={{ color: "black", fontSize: 20 }}>
+                  {item.owner.account.username}
+                </Text>
+              </View>
+              <View style={styles.image}>
+                <Image
+                  source={{
+                    uri: item.product_image.secure_url,
+                  }}
+                  resizeMode="cover"
+                  style={styles.img1}
+                ></Image>
+              </View>
               <View style={styles.container1}>
-                <View style={styles.image}>
-                  <Image
-                    source={{
-                      uri: item.product_image.secure_url,
-                    }}
-                    resizeMode="cover"
-                    style={styles.img}
-                  ></Image>
-                </View>
+                <Text>{item.product_details[0].MARQUE}</Text>
+                <Text>{item.product_details[1].TAILLE}</Text>
+                {/* <Text>{item._id}</Text> */}
+              </View>
+              <View>
+                <Text style={{ color: "black", fontSize: 16 }}>
+                  {item.product_price}€
+                </Text>
               </View>
             </TouchableOpacity>
           );
@@ -72,13 +91,17 @@ export default function HomeScreen() {
   );
 }
 const styles = StyleSheet.create({
-  container: { flex: 1 },
+  container: { flex: 1, paddingHorizontal: 15 },
   img: {
-    height: 85,
-    width: 85,
-    // borderRadius: 50,
+    height: 65,
+    width: 65,
+    borderRadius: 50,
     //borderWidth: 2,
     // borderColor: "#FC8083",
     // top: -30,
+  },
+  img1: {
+    height: 230,
+    width: 450,
   },
 });

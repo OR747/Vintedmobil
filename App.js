@@ -146,7 +146,7 @@ export default function App() {
                           headerTitle: () => <Logo />,
                         }}
                       >
-                        {() => <OfferScreen />}
+                        {(props) => <OfferScreen {...props} />}
                       </Stack.Screen>
                     </Stack.Navigator>
                   )}
