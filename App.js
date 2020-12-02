@@ -91,7 +91,7 @@ export default function App() {
             name="SignUp"
             options={{ header: () => null, animationEnabled: false }}
           >
-            {() => <SignUpScreen setToken={setToken} />}
+            {() => <SignUpScreen setToken={setToken} setId={setId} />}
           </Stack.Screen>
 
           <Stack.Screen
@@ -172,7 +172,7 @@ export default function App() {
                           headerTitle: () => <Logo />,
                         }}
                       >
-                        {() => <SearchScreen />}
+                        {() => <SearchScreen setToken={setToken} />}
                       </Stack.Screen>
                       <Stack.Screen
                         name="Sort"

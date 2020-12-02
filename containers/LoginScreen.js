@@ -17,8 +17,10 @@ export default function LoginScreen({ setToken, setId }) {
   // const [username, setUsername]= useState("");
   const [password, setPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState(null);
+
   console.log("email", email);
   console.log("password", password);
+
   const handleSubmit = async () => {
     if (email && password) {
       console.log("on passe à la suite");

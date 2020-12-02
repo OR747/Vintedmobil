@@ -46,11 +46,12 @@ export default function ProfilScreen({ setToken, userId }) {
     try {
       const id = await AsyncStorage.getItem("userId");
       const token = await AsyncStorage.getItem("userToken");
+
       console.log(userId);
       console.log(token);
 
       const response = await axios.get(
-        `https://lereacteur-vinted-api.herokuapp.com/offer/${userId}`,
+        `https://lereacteur-vinted-api.herokuapp.com/user/${userId}`,
         {
           headers: {
             Authorization: "Bearer " + token,
@@ -78,142 +79,142 @@ export default function ProfilScreen({ setToken, userId }) {
   };
   //update informations
 
-  const editInformations = async () => {
-    setIsLoading(true);
+  // const editInformations = async () => {
+  //   setIsLoading(true);
 
-    if (
-      newEmail !== email ||
-      newUsername !== username ||
-      newPassword !== password ||
-      newPicture !== picture
-    ) {
-      try {
-        // update picture
+  //   if (
+  //     newEmail !== email ||
+  //     newUsername !== username ||
+  //     newPassword !== password ||
+  //     newPicture !== picture
+  //   ) {
+  //     try {
+  // update picture
 
-        // if (newPicture !== picture) {
-        //   const uri = newPicture;
-        //   const uriParts = uri.split(".");
-        //   const fileType = uriParts[1];
+  // if (newPicture !== picture) {
+  //   const uri = newPicture;
+  //   const uriParts = uri.split(".");
+  //   const fileType = uriParts[1];
 
-        //   const formData = new FormData();
-        //   formData.append("photo", {
-        //     uri,
-        //     name: `userPicture`,
-        //     type: `image/${fileType}`,
-        //   });
-        //   const token = await AsyncStorage.getItem("userToken");
+  //   const formData = new FormData();
+  //   formData.append("photo", {
+  //     uri,
+  //     name: `userPicture`,
+  //     type: `image/${fileType}`,
+  //   });
+  //   const token = await AsyncStorage.getItem("userToken");
 
-        //   const response = await axios.put(
-        //     `https://lereacteur-vinted-api.herokuapp.com/user/upload_picture`,
+  //   const response = await axios.put(
+  //     `https://lereacteur-vinted-api.herokuapp.com/user/upload_picture`,
 
-        //     formData,
-        //     {
-        //       headers: {
-        //         Authorization: "Bearer " + token,
-        //       },
-        //     }
-        //   );
-        //   console.log(response.data);
-        //   if (response.data) {
-        //     setPicture(response.data.photo[0].url);
-        //     setIsLoading(false);
-        //   }
-        // }
+  //     formData,
+  //     {
+  //       headers: {
+  //         Authorization: "Bearer " + token,
+  //       },
+  //     }
+  //   );
+  //   console.log(response.data);
+  //   if (response.data) {
+  //     setPicture(response.data.photo[0].url);
+  //     setIsLoading(false);
+  //   }
+  // }
 
-        // update email / username / password
+  // update email / username / password
 
-        if (
-          newEmail !== email ||
-          newUsername !== username ||
-          newPassword !== password
-        ) {
-          const obj = {};
-          if (newEmail !== email) {
-            obj.email = newEmail;
-          }
-          if (newUsername !== username) {
-            obj.username = newUsername;
-          }
-          if (newPassword !== password) {
-            obj.password = newPassword;
-          }
-          const token = await AsyncStorage.getItem("userToken");
+  //       if (
+  //         newEmail !== email ||
+  //         newUsername !== username ||
+  //         newPassword !== password
+  //       ) {
+  //         const obj = {};
+  //         if (newEmail !== email) {
+  //           obj.email = newEmail;
+  //         }
+  //         if (newUsername !== username) {
+  //           obj.username = newUsername;
+  //         }
+  //         if (newPassword !== password) {
+  //           obj.password = newPassword;
+  //         }
+  //         const token = await AsyncStorage.getItem("userToken");
 
-          const response = await axios.put(
-            `https://lereacteur-vinted-api.herokuapp.com/update`,
+  //         const response = await axios.put(
+  //           `https://lereacteur-vinted-api.herokuapp.com/update`,
 
-            obj,
-            {
-              headers: {
-                Authorization: "Bearer " + token,
-              },
-            }
-          );
+  //           obj,
+  //           {
+  //             headers: {
+  //               Authorization: "Bearer " + token,
+  //             },
+  //           }
+  //         );
 
-          if (response.data) {
-            setUsername(response.data.username);
-            setEmail(response.data.email);
-            setDescription(response.data.password);
-          } else {
-            setDisplayMessage({
-              message: "An error occurred",
-              color: "error",
-            });
-          }
-        }
+  //         if (response.data) {
+  //           setUsername(response.data.username);
+  //           setEmail(response.data.email);
+  //           setDescription(response.data.password);
+  //         } else {
+  //           setDisplayMessage({
+  //             message: "An error occurred",
+  //             color: "error",
+  //           });
+  //         }
+  //       }
 
-        setDisplayMessage({
-          message: "Your profile has been updated",
-          color: "success",
-        });
-        setIsLoading(false);
-      } catch (error) {
-        setDisplayMessage({
-          message: "error",
-          color: "error",
-        });
-        setIsLoading(false);
-        fetchData();
-      }
-    } else {
-      setDisplayMessage({
-        message: "Please change at least one information",
-        color: "error",
-      });
-      setIsLoading(false);
-    }
-  };
+  //       setDisplayMessage({
+  //         message: "Your profile has been updated",
+  //         color: "success",
+  //       });
+  //       setIsLoading(false);
+  //     } catch (error) {
+  //       setDisplayMessage({
+  //         message: "error",
+  //         color: "error",
+  //       });
+  //       setIsLoading(false);
+  //       fetchData();
+  //     }
+  //   } else {
+  //     setDisplayMessage({
+  //       message: "Please change at least one information",
+  //       color: "error",
+  //     });
+  //     setIsLoading(false);
+  //   }
+  // };
   // get picture from image library
 
-  const uploadPicture = async () => {
-    const { status } = await Permissions.askAsync(Permissions.CAMERA_ROLL);
-    if (status === "granted") {
-      const result = await ImagePicker.launchImageLibraryAsync();
-      if (!result.cancelled) {
-        setNewPicture(result.uri);
-      }
-    }
-    setDisplayMessage(false);
-  };
+  // const uploadPicture = async () => {
+  //   const { status } = await Permissions.askAsync(Permissions.CAMERA_ROLL);
+  //   if (status === "granted") {
+  //     const result = await ImagePicker.launchImageLibraryAsync();
+  //     if (!result.cancelled) {
+  //       setNewPicture(result.uri);
+  //     }
+  //   }
+  //   setDisplayMessage(false);
+  // };
 
   // get picture from camera
 
-  const takePicture = async () => {
-    const { status } = await Permissions.askAsync(Permissions.CAMERA);
-    if (status === "granted") {
-      const result = await ImagePicker.launchCameraAsync();
-      if (!result.cancelled) {
-        setNewPicture(result.uri);
-      }
-    }
-    setDisplayMessage(false);
-  };
+  // const takePicture = async () => {
+  //   const { status } = await Permissions.askAsync(Permissions.CAMERA);
+  //   if (status === "granted") {
+  //     const result = await ImagePicker.launchCameraAsync();
+  //     if (!result.cancelled) {
+  //       setNewPicture(result.uri);
+  //     }
+  //   }
+  //   setDisplayMessage(false);
+  // };
 
   return isLoading ? (
     <ActivityIndicator size="large" color="#29b6be" />
   ) : (
     <ScrollView style={styles.container}>
-      <View style={styles.topView}>
+      {/* <View style={styles.topView}>
         <TouchableOpacity style={styles.pictureView}>
           {newPicture ? (
             <Image
@@ -282,7 +283,7 @@ export default function ProfilScreen({ setToken, userId }) {
       </View>
       <View style={styles.button0}>
         <Button title="Update" color="black" onPress={editInformations} />
-      </View>
+      </View> */}
       <View style={styles.button}>
         <Button
           title="Log Out"
