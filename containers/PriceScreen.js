@@ -3,20 +3,20 @@ import { useNavigation } from "@react-navigation/core";
 import { Button, Text, View, StyleSheet, TextInput } from "react-native";
 
 export default function PriceScreen() {
-  const [priceMin, setPrcieMin] = useState("");
-  const [priceMax, setPriceMax] = useState("");
+  const [priceMin, setPriceMin] = useState();
+  const [priceMax, setPriceMax] = useState();
 
   const navigation = useNavigation();
 
   const handleSubmit = async () => {
     try {
       const response = await axios.get(
-        `https://lereacteur-vinted-api.herokuapp.com/offers/${priceMin}&${priceMax}`
+        `https://lereacteur-vinted-api.herokuapp.com/offers?priceMin=${priceMin}&priceMax=${priceMax}`
       );
       //console.log(response.data);
       if (response.data.priceMin && response.data.priceMax) {
         setPriceMax(response.data.priceMax);
-        setPrcieMin(response.data.price);
+        setPriceMin(response.data.priceMin);
         navigation.navigate("Recherche");
       } else {
         alert("An error occurred");
@@ -34,7 +34,7 @@ export default function PriceScreen() {
           placeholder="priceMin"
           value={priceMin}
           onChangeText={(number) => {
-            setPrcieMin(number);
+            setPriceMin(number);
           }}
         />
       </View>
