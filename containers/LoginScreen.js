@@ -36,9 +36,11 @@ export default function LoginScreen({ setToken, setId }) {
         );
 
         console.log(response.data);
-        if (response.data.token) {
-          setToken(response.data.token);
-          setId(response.data.id);
+        if (response.data.token && response.data._id) {
+          const token = response.data.token;
+          const id = response.data._id;
+          setToken(token);
+          setId(id);
           navigation.navigate("Home");
         } else {
           alert("An error occurred");
