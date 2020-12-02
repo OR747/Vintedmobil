@@ -169,7 +169,8 @@ export default function App() {
                       <Stack.Screen
                         name="Recherche"
                         options={{
-                          headerTitle: () => <Logo />,
+                          header: () => null,
+                          animationEnabled: false,
                         }}
                       >
                         {() => <SearchScreen setToken={setToken} />}
@@ -245,7 +246,8 @@ export default function App() {
                       <Stack.Screen
                         name="Profil"
                         options={{
-                          headerTitle: () => <Logo />,
+                          header: () => null,
+                          animationEnabled: false,
                         }}
                       >
                         {() => (

@@ -44,40 +44,40 @@ export default function ProfilScreen({ setToken, userId }) {
 
   const fetchData = async () => {
     try {
-      const id = await AsyncStorage.getItem("userId");
+      //const id = await AsyncStorage.getItem("userId");
       const token = await AsyncStorage.getItem("userToken");
 
       console.log(userId);
       console.log(token);
 
-      const response = await axios.get(
-        `https://lereacteur-vinted-api.herokuapp.com/user/${userId}`,
-        {
-          headers: {
-            Authorization: "Bearer " + token,
-          },
-        }
-      );
+      // const response = await axios.get(
+      //   `https://lereacteur-vinted-api.herokuapp.com/user/${userId}`,
+      //   {
+      //     headers: {
+      //       Authorization: "Bearer " + token,
+      //     },
+      //   }
+      // );
+      // console.log(response.data);
+      // setUsername(response.data.username);
+      // setEmail(response.data.email);
+      // setPassword(response.data.password);
 
-      setUsername(response.data.username);
-      setEmail(response.data.email);
-      setPassword(response.data.password);
+      // setNewUsername(response.data.username);
+      // setNewEmail(response.data.email);
+      // setNewPassword(response.data.password);
 
-      setNewUsername(response.data.username);
-      setNewEmail(response.data.email);
-      setNewPassword(response.data.password);
-
-      if (response.data.photo) {
-        setPicture(response.data.photo.url);
-        setNewPicture(response.data.photo.url);
-      }
+      // if (response.data.photo) {
+      //   setPicture(response.data.photo.url);
+      //   setNewPicture(response.data.photo.url);
+      // }
 
       setIsLoading(false);
     } catch (error) {
       console.log(error.message);
     }
   };
-  //update informations
+  // //update informations
 
   // const editInformations = async () => {
   //   setIsLoading(true);
@@ -89,7 +89,8 @@ export default function ProfilScreen({ setToken, userId }) {
   //     newPicture !== picture
   //   ) {
   //     try {
-  // update picture
+
+  // //update picture
 
   // if (newPicture !== picture) {
   //   const uri = newPicture;
@@ -243,7 +244,7 @@ export default function ProfilScreen({ setToken, userId }) {
             <FontAwesome5 name="camera" size={30} color={colors.grey} />
           </TouchableOpacity>
         </View>
-      </View>
+      </View> */}
 
       <View style={styles.input1}>
         <TextInput
@@ -281,13 +282,13 @@ export default function ProfilScreen({ setToken, userId }) {
           />
         )}
       </View>
-      <View style={styles.button0}>
+      {/* <View style={styles.button0}>
         <Button title="Update" color="black" onPress={editInformations} />
       </View> */}
       <View style={styles.button}>
         <Button
           title="Log Out"
-          color="gray"
+          color="white"
           onPress={() => {
             setToken(null);
           }}
@@ -297,7 +298,7 @@ export default function ProfilScreen({ setToken, userId }) {
   );
 }
 const styles = StyleSheet.create({
-  container: { flex: 1 },
+  container: { flex: 1, paddingHorizontal: 15, backgroundColor: "white" },
   //images et photos
   picture: {
     height: 150,
@@ -332,18 +333,14 @@ const styles = StyleSheet.create({
   //inputs//
 
   input1: {
-    marginTop: 30,
-    borderBottomColor: "#FFBAC0",
+    marginTop: 350,
+    borderBottomColor: "#29b6be",
     borderBottomWidth: 2,
-    marginLeft: 30,
-    marginRight: 30,
   },
   input2: {
     marginTop: 50,
-    borderBottomColor: "#FFBAC0",
+    borderBottomColor: "#29b6be",
     borderBottomWidth: 2,
-    marginLeft: 30,
-    marginRight: 30,
   },
 
   button0: {
@@ -361,17 +358,13 @@ const styles = StyleSheet.create({
     alignContent: "center",
   },
   button: {
-    backgroundColor: "lightgray",
-
-    width: 210,
-    height: 65,
-    marginTop: 30,
+    marginTop: 40,
     alignItems: "center",
-    borderRadius: 90,
-    marginLeft: 105,
-    borderWidth: 2,
-    borderColor: "#FC8083",
     justifyContent: "center",
-    alignContent: "center",
+    borderWidth: 2,
+    borderColor: "#29b6be",
+    height: 55,
+    borderRadius: 4,
+    backgroundColor: "#29b6be",
   },
 });
