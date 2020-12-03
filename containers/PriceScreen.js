@@ -91,10 +91,11 @@ export default function PriceScreen({ setData }) {
         <TouchableOpacity
           onPress={() => {
             if (priceDesc === true) {
-              setPriceAsc(true);
+              // setPriceAsc(true);
               setPriceDesc(false);
             } else {
               setPriceDesc(true);
+              setPriceAsc(false);
             }
             // setPriceDesc(!priceDesc);
           }}
@@ -113,10 +114,10 @@ export default function PriceScreen({ setData }) {
           onPress={() => {
             if (priceAsc === true) {
               setPriceAsc(false);
-              setPriceDesc(true);
+              // setPriceDesc(true);
             } else {
               setPriceAsc(true);
-              // setPriceDesc(true);
+              setPriceDesc(false);
             }
           }}
         >
