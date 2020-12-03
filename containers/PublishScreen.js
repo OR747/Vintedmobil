@@ -92,6 +92,15 @@ export default function PublishScreen() {
           }}
         />
       </View>
+      <View style={styles.input2}>
+        <Text>Prix</Text>
+        <TextInput
+          placeholder="0,00 €"
+          onChangeText={(text) => {
+            setPrice(text);
+          }}
+        />
+      </View>
       <Button
         title="Go to Home"
         onPress={() => {

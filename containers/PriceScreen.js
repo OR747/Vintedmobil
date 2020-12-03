@@ -57,7 +57,7 @@ export default function PriceScreen({ setData }) {
     console.log("ok=>", filters);
     try {
       const response = await axios.get(
-        `https://lereacteur-vinted-api.herokuapp.com/offers?filters=${filters}`
+        `https://lereacteur-vinted-api.herokuapp.com/offers${filters}`
       );
       // console.log(response.data.offers);
       setData(response.data);
@@ -171,12 +171,13 @@ const styles = StyleSheet.create({
   },
   unchekBox1: {
     marginTop: 50,
-    height: 40,
-    width: 40,
+    height: 50,
+    width: 50,
     borderWidth: 2,
     borderColor: "#29b6be",
     alignItems: "center",
     justifyContent: "center",
+    borderRadius: 18,
   },
   input2: {
     marginTop: 50,
