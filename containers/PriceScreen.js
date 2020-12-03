@@ -10,6 +10,7 @@ import {
 } from "react-native";
 import axios from "axios";
 import { Octicons } from "@expo/vector-icons";
+import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 export default function PriceScreen({ setData }) {
   const [priceMin, setPriceMin] = useState("");
   const [priceMax, setPriceMax] = useState("");
@@ -77,104 +78,108 @@ export default function PriceScreen({ setData }) {
 
   return (
     <View style={styles.container0}>
-      <Text style={{ fontSize: 18 }}>Trier par</Text>
-      <View style={styles.container1}>
+      <KeyboardAwareScrollView>
+        <Text style={{ fontSize: 18, marginTop: 90 }}>Trier par</Text>
+        <View style={styles.container1}>
+          <View style={styles.input2}>
+            <Text style={{ color: "gray" }}>Prix minimum</Text>
+            <TextInput
+              placeholder="€"
+              value={priceMin}
+              onChangeText={(number) => {
+                setPriceMin(number);
+              }}
+            />
+          </View>
+          <View style={styles.input2}>
+            <Text style={{ color: "gray" }}>Prix maximum</Text>
+            <TextInput
+              placeholder="€"
+              value={priceMax}
+              onChangeText={(number) => {
+                setPriceMax(number);
+              }}
+            />
+          </View>
+        </View>
         <View style={styles.input2}>
-          <Text>Prix minimum</Text>
+          <Text style={{ color: "gray" }}>Titre</Text>
           <TextInput
-            placeholder="€"
-            value={priceMin}
-            onChangeText={(number) => {
-              setPriceMin(number);
+            placeholder="ex: Zara"
+            value={title}
+            onChangeText={(text) => {
+              setTitle(text);
             }}
           />
         </View>
-        <View style={styles.input2}>
-          <Text>Prix maximum</Text>
-          <TextInput
-            placeholder="€"
-            value={priceMax}
-            onChangeText={(number) => {
-              setPriceMax(number);
+        <View style={styles.container12}>
+          <View style={styles.container2}>
+            <Text style={{ color: "gray" }}>Prix décroissant</Text>
+            <View
+              style={priceDesc === true ? styles.checkBox : styles.unchekBox1}
+            >
+              <TouchableOpacity
+                onPress={() => {
+                  if (priceDesc === true) {
+                    // setPriceAsc(true);
+                    setPriceDesc(false);
+                  } else {
+                    setPriceDesc(true);
+                    setPriceAsc(false);
+                  }
+                  // setPriceDesc(!priceDesc);
+                }}
+              >
+                {priceDesc === true ? (
+                  <Octicons name="primitive-dot" size={35} color="#29b6be" />
+                ) : (
+                  <Octicons name="primitive-dot" size={35} color="white" />
+                )}
+              </TouchableOpacity>
+            </View>
+          </View>
+          <View style={styles.container2}>
+            <Text style={{ color: "gray" }}>Prix croissant</Text>
+            <View
+              style={priceAsc === true ? styles.checkBox : styles.unchekBox1}
+            >
+              <TouchableOpacity
+                onPress={() => {
+                  if (priceAsc === true) {
+                    setPriceAsc(false);
+                    // setPriceDesc(true);
+                  } else {
+                    setPriceAsc(true);
+                    setPriceDesc(false);
+                  }
+                }}
+              >
+                {priceAsc === true ? (
+                  <Octicons name="primitive-dot" size={35} color="#29b6be" />
+                ) : (
+                  <Octicons name="primitive-dot" size={35} color="white" />
+                )}
+              </TouchableOpacity>
+            </View>
+          </View>
+        </View>
+        <View style={styles.text}>
+          {/* <Text style={{ color: "#29b6be" }}>En savoir plus</Text> */}
+          <Text style={{ color: "gray" }}>
+            En savoir plus sur la façon dont nous trions la pertinences des
+            articles dans le fil d'actualité
+          </Text>
+        </View>
+        <View style={styles.button}>
+          <Button
+            title="Afficher les résultats"
+            color="white"
+            onPress={() => {
+              handleSubmit();
             }}
           />
         </View>
-      </View>
-      <View style={styles.input2}>
-        <Text>Titre</Text>
-        <TextInput
-          placeholder="ex: Zara"
-          value={title}
-          onChangeText={(text) => {
-            setTitle(text);
-          }}
-        />
-      </View>
-      <View style={styles.container12}>
-        <View style={styles.container2}>
-          <Text>Prix décroissant</Text>
-          <View
-            style={priceDesc === true ? styles.checkBox : styles.unchekBox1}
-          >
-            <TouchableOpacity
-              onPress={() => {
-                if (priceDesc === true) {
-                  // setPriceAsc(true);
-                  setPriceDesc(false);
-                } else {
-                  setPriceDesc(true);
-                  setPriceAsc(false);
-                }
-                // setPriceDesc(!priceDesc);
-              }}
-            >
-              {priceDesc === true ? (
-                <Octicons name="primitive-dot" size={35} color="#29b6be" />
-              ) : (
-                <Octicons name="primitive-dot" size={35} color="white" />
-              )}
-            </TouchableOpacity>
-          </View>
-        </View>
-        <View style={styles.container2}>
-          <Text>Prix croissant</Text>
-          <View style={priceAsc === true ? styles.checkBox : styles.unchekBox1}>
-            <TouchableOpacity
-              onPress={() => {
-                if (priceAsc === true) {
-                  setPriceAsc(false);
-                  // setPriceDesc(true);
-                } else {
-                  setPriceAsc(true);
-                  setPriceDesc(false);
-                }
-              }}
-            >
-              {priceAsc === true ? (
-                <Octicons name="primitive-dot" size={35} color="#29b6be" />
-              ) : (
-                <Octicons name="primitive-dot" size={35} color="white" />
-              )}
-            </TouchableOpacity>
-          </View>
-        </View>
-      </View>
-      <View style={styles.text}>
-        {/* <Text style={{ color: "#29b6be" }}>En savoir plus</Text> */}
-        <Text style={{ color: "gray" }}>
-          En savoir plus sur la façon dont nous trions la pertinences des
-          articles dans le fil d'actualité
-        </Text>
-      </View>
-      <View style={styles.button}>
-        <Button
-          title="Afficher les résultats"
-          color="white"
-          onPress={() => {
-            handleSubmit();
-          }}
-        />
-      </View>
+      </KeyboardAwareScrollView>
     </View>
   );
 }
@@ -183,7 +188,7 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "white",
     //justifyContent: "center",
-    marginTop: 90,
+    // marginTop: 90,
     paddingHorizontal: 15,
   },
   container1: {
