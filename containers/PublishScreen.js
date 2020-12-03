@@ -1,8 +1,17 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigation } from "@react-navigation/core";
 import { Button, Text, View, StyleSheet, TextInput } from "react-native";
 
 export default function PublishScreen() {
+  const [title, setTitle] = useState("");
+  const [description, setDescription] = useState("");
+  const [selectedBrand, setSelectedBrand] = useState("");
+  const [selectedSize, setSelectedSize] = useState("");
+  const [color, setColor] = useState("");
+  const [condition, setCondition] = useState("");
+  const [city, setCity] = useState("");
+  const [price, setPrice] = useState("");
+
   const navigation = useNavigation();
   return (
     <View style={styles.container}>

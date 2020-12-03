@@ -9,39 +9,49 @@ import {
   TouchableOpacity,
 } from "react-native";
 import axios from "axios";
+import { set } from "react-native-reanimated";
 export default function PriceScreen({ setData }) {
   const [priceMin, setPriceMin] = useState("");
   const [priceMax, setPriceMax] = useState("");
-  // const [priceDesc, setPriceDesc] = useState(false);
-  // const [priceAsc, setPriceAsc] = useState(false);
-  const [sort, setSort] = useState("");
+  const [priceDesc, setPriceDesc] = useState(false);
+  const [priceAsc, setPriceAsc] = useState(false);
+
   const navigation = useNavigation();
 
   const handleSubmit = async () => {
-    // if (priceMin && priceMax) {
-    //   console.log("ok");
-    // } else if (priceMin || priceMax) {
-    //   console.log("ok2");
-    // }
+    let filters = "";
+    let numberOfParams = 0;
+    if (priceAsc === true) {
+      if (numberOfParams === 0) {
+        filters = filters + "?sort=price-asc";
+      } else {
+        filters = filters + "&sort=price-asc";
+      }
+      numberOfParams++;
+    }
+    if (priceDesc === true) {
+      if (numberOfParams === 0) {
+        filters = filters + "?sort=price-desc";
+      } else {
+        filters = filters + "&sort=price-desc";
+      }
+      numberOfParams++;
+    }
+    if (priceMin) {
+      if (numberOfParams === 0) {
+        filters = filters + `?priceMin=${Number(priceMin)}`;
+      } else {
+        filters = filters + `&priceMin=${Number(priceMin)}`;
+      }
+      numberOfParams++;
+    }
 
-    // const sort = {};
-
+    console.log("ok=>", filters);
     try {
       const response = await axios.get(
-        `https://lereacteur-vinted-api.herokuapp.com/offers?priceMin=${Number(
-          priceMin
-        )}&priceMax=${Number(priceMax)}`
+        `https://lereacteur-vinted-api.herokuapp.com/offers?filters=${filters}`
       );
-      // console.log("coucou", response.data);
 
-      // if (sort === price - asc) {
-      //   setData(response.data);
-      //   navigation.navigate("Recherche");
-      // }
-      // // if (sort === price - desc) {
-      // //   setData(response.data);
-      // //   navigation.navigate("Recherche");
-      // }
       setData(response.data);
       navigation.navigate("Recherche");
     } catch (error) {
@@ -69,24 +79,44 @@ export default function PriceScreen({ setData }) {
           }}
         />
       </View>
-      <View style={styles.button}>
-        <Button
-          title="Prix croissant"
-          color="white"
+      <View style={priceDesc === true ? styles.checkBox : styles.unchekBox1}>
+        <TouchableOpacity
           onPress={() => {
-            handleSubmit();
+            if (priceDesc === true) {
+              setPriceAsc(true);
+              setPriceDesc(false);
+            } else {
+              setPriceDesc(true);
+            }
+            // setPriceDesc(!priceDesc);
           }}
-        />
+        >
+          {priceDesc === true ? (
+            <Text style={{ color: "green" }}>desc</Text>
+          ) : (
+            <Text style={{ color: "red" }}>no desc</Text>
+          )}
+        </TouchableOpacity>
       </View>
-      <View style={styles.button}>
-        <Button
-          title="Prix décoissant"
-          color="white"
+      <View style={priceAsc === true ? styles.checkBox : styles.unchekBox}>
+        <TouchableOpacity
           onPress={() => {
-            handleSubmit();
+            if (priceAsc === true) {
+              setPriceAsc(false);
+              setPriceDesc(true);
+            } else {
+              setPriceAsc(true);
+            }
           }}
-        />
+        >
+          {priceAsc === true ? (
+            <Text style={{ color: "green" }}>asc</Text>
+          ) : (
+            <Text style={{ color: "red" }}>no asc</Text>
+          )}
+        </TouchableOpacity>
       </View>
+
       <View style={styles.button}>
         <Button
           title="Afficher les résultats"
@@ -107,10 +137,47 @@ const styles = StyleSheet.create({
     marginTop: 90,
     paddingHorizontal: 15,
   },
+  checkBox: {
+    marginTop: 50,
+    height: 40,
+    width: 40,
+    borderWidth: 2,
+    borderColor: "#29b6be",
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  unchekBox: {
+    marginTop: 50,
+    height: 40,
+    width: 40,
+    borderWidth: 2,
+    borderColor: "#29b6be",
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  unchekBox1: {
+    marginTop: 50,
+    height: 40,
+    width: 40,
+    borderWidth: 2,
+    borderColor: "#29b6be",
+    alignItems: "center",
+    justifyContent: "center",
+  },
   input2: {
     marginTop: 50,
     borderBottomColor: "#29b6be",
     borderBottomWidth: 2,
+  },
+  button1: {
+    marginTop: 40,
+    alignItems: "center",
+    justifyContent: "center",
+    borderWidth: 2,
+    borderColor: "#29b6be",
+    height: 55,
+    borderRadius: 4,
+    // backgroundColor: "#29b6be",
   },
   button: {
     marginTop: 40,
