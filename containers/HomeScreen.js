@@ -92,7 +92,7 @@ export default function HomeScreen() {
   );
 }
 const styles = StyleSheet.create({
-  container: { flex: 1, paddingHorizontal: 15 },
+  container: { flex: 1, paddingHorizontal: 15, paddingTop: 80 },
   img: {
     height: 65,
     width: 65,

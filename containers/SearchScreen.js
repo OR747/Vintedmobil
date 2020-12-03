@@ -10,9 +10,9 @@ import {
 } from "react-native";
 import axios from "axios";
 import { FlatList } from "react-native-gesture-handler";
-export default function SearchScreen({ setToken }) {
+export default function SearchScreen({ setData, data }) {
   const navigation = useNavigation();
-  const [data, setData] = useState({});
+
   const [isLoading, setIsLoading] = useState(true);
 
   const fetchData = async () => {

@@ -40,7 +40,7 @@ export default function App() {
   const [isLoading, setIsLoading] = useState(true);
   const [userToken, setUserToken] = useState(null);
   const [userId, setUserId] = useState(null);
-
+  const [data, setData] = useState({});
   const setId = async (id) => {
     if (id) {
       AsyncStorage.setItem("userId", id);
@@ -131,10 +131,8 @@ export default function App() {
                       <Stack.Screen
                         name="Home"
                         options={{
-                          headerStyle: {
-                            backgroundColor: "white",
-                          },
-                          headerTitle: () => <Logo />,
+                          header: () => null,
+                          animationEnabled: false,
                         }}
                       >
                         {() => <HomeScreen />}
@@ -173,7 +171,7 @@ export default function App() {
                           animationEnabled: false,
                         }}
                       >
-                        {() => <SearchScreen setToken={setToken} />}
+                        {() => <SearchScreen setData={setData} data={data} />}
                       </Stack.Screen>
                       <Stack.Screen
                         name="Sort"
@@ -186,10 +184,11 @@ export default function App() {
                       <Stack.Screen
                         name="Price"
                         options={{
-                          headerTitle: () => <Logo />,
+                          header: () => null,
+                          animationEnabled: false,
                         }}
                       >
-                        {() => <PriceScreen setToken={setToken} />}
+                        {() => <PriceScreen setData={setData} />}
                       </Stack.Screen>
                     </Stack.Navigator>
                   )}
