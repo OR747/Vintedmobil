@@ -9,13 +9,13 @@ import {
   TouchableOpacity,
 } from "react-native";
 import axios from "axios";
-
+import { Octicons } from "@expo/vector-icons";
 export default function PriceScreen({ setData }) {
   const [priceMin, setPriceMin] = useState("");
   const [priceMax, setPriceMax] = useState("");
   const [priceDesc, setPriceDesc] = useState(false);
   const [priceAsc, setPriceAsc] = useState(false);
-
+  const [title, setTitle] = useState("");
   const navigation = useNavigation();
 
   const handleSubmit = async () => {
@@ -34,6 +34,14 @@ export default function PriceScreen({ setData }) {
         filters = filters + "?sort=price-desc";
       } else {
         filters = filters + "&sort=price-desc";
+      }
+      numberOfParams++;
+    }
+    if (title) {
+      if (numberOfParams === 0) {
+        filters = filters + `?title=${title}`;
+      } else {
+        filters = filters + `&title=${title}`;
       }
       numberOfParams++;
     }
@@ -69,68 +77,95 @@ export default function PriceScreen({ setData }) {
 
   return (
     <View style={styles.container0}>
+      <Text style={{ fontSize: 18 }}>Trier par</Text>
+      <View style={styles.container1}>
+        <View style={styles.input2}>
+          <Text>Prix minimum</Text>
+          <TextInput
+            placeholder="€"
+            value={priceMin}
+            onChangeText={(number) => {
+              setPriceMin(number);
+            }}
+          />
+        </View>
+        <View style={styles.input2}>
+          <Text>Prix maximum</Text>
+          <TextInput
+            placeholder="€"
+            value={priceMax}
+            onChangeText={(number) => {
+              setPriceMax(number);
+            }}
+          />
+        </View>
+      </View>
       <View style={styles.input2}>
+        <Text>Titre</Text>
         <TextInput
-          placeholder="priceMin"
-          value={priceMin}
-          onChangeText={(number) => {
-            setPriceMin(number);
+          placeholder="ex: Zara"
+          value={title}
+          onChangeText={(text) => {
+            setTitle(text);
           }}
         />
       </View>
-      <View style={styles.input2}>
-        <TextInput
-          placeholder="priceMax"
-          value={priceMax}
-          onChangeText={(number) => {
-            setPriceMax(number);
-          }}
-        />
+      <View style={styles.container12}>
+        <View style={styles.container2}>
+          <Text>Prix décroissant</Text>
+          <View
+            style={priceDesc === true ? styles.checkBox : styles.unchekBox1}
+          >
+            <TouchableOpacity
+              onPress={() => {
+                if (priceDesc === true) {
+                  // setPriceAsc(true);
+                  setPriceDesc(false);
+                } else {
+                  setPriceDesc(true);
+                  setPriceAsc(false);
+                }
+                // setPriceDesc(!priceDesc);
+              }}
+            >
+              {priceDesc === true ? (
+                <Octicons name="primitive-dot" size={35} color="#29b6be" />
+              ) : (
+                <Octicons name="primitive-dot" size={35} color="white" />
+              )}
+            </TouchableOpacity>
+          </View>
+        </View>
+        <View style={styles.container2}>
+          <Text>Prix croissant</Text>
+          <View style={priceAsc === true ? styles.checkBox : styles.unchekBox1}>
+            <TouchableOpacity
+              onPress={() => {
+                if (priceAsc === true) {
+                  setPriceAsc(false);
+                  // setPriceDesc(true);
+                } else {
+                  setPriceAsc(true);
+                  setPriceDesc(false);
+                }
+              }}
+            >
+              {priceAsc === true ? (
+                <Octicons name="primitive-dot" size={35} color="#29b6be" />
+              ) : (
+                <Octicons name="primitive-dot" size={35} color="white" />
+              )}
+            </TouchableOpacity>
+          </View>
+        </View>
       </View>
-      <View style={priceDesc === true ? styles.checkBox : styles.unchekBox1}>
-        <TouchableOpacity
-          onPress={() => {
-            if (priceDesc === true) {
-              // setPriceAsc(true);
-              setPriceDesc(false);
-            } else {
-              setPriceDesc(true);
-              setPriceAsc(false);
-            }
-            // setPriceDesc(!priceDesc);
-          }}
-        >
-          {priceDesc === true ? (
-            <Text style={{ backgroundColor: "#29b6be", color: "black" }}>
-              desc
-            </Text>
-          ) : (
-            <Text style={{ color: "red" }}>no desc</Text>
-          )}
-        </TouchableOpacity>
+      <View style={styles.text}>
+        {/* <Text style={{ color: "#29b6be" }}>En savoir plus</Text> */}
+        <Text style={{ color: "gray" }}>
+          En savoir plus sur la façon dont nous trions la pertinences des
+          articles dans le fil d'actualité
+        </Text>
       </View>
-      <View style={priceAsc === true ? styles.checkBox : styles.unchekBox}>
-        <TouchableOpacity
-          onPress={() => {
-            if (priceAsc === true) {
-              setPriceAsc(false);
-              // setPriceDesc(true);
-            } else {
-              setPriceAsc(true);
-              setPriceDesc(false);
-            }
-          }}
-        >
-          {priceAsc === true ? (
-            <Text style={{ backgroundColor: "#29b6be", color: "black" }}>
-              asc
-            </Text>
-          ) : (
-            <Text style={{ color: "red" }}>no asc</Text>
-          )}
-        </TouchableOpacity>
-      </View>
-
       <View style={styles.button}>
         <Button
           title="Afficher les résultats"
@@ -146,43 +181,57 @@ export default function PriceScreen({ setData }) {
 const styles = StyleSheet.create({
   container0: {
     flex: 1,
-    //backgroundColor: "white",
+    backgroundColor: "white",
     //justifyContent: "center",
     marginTop: 90,
     paddingHorizontal: 15,
   },
+  container1: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    marginTop: 50,
+  },
+  container12: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    marginTop: 80,
+  },
+  text: { marginTop: 80, flexDirection: "row" },
+  container2: {
+    width: "45%",
+    // borderWidth: 2,
+    // borderColor: "#29b6be",
+    marginTop: 30,
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+  },
   checkBox: {
-    marginTop: 50,
     height: 40,
     width: 40,
     borderWidth: 2,
     borderColor: "#29b6be",
     alignItems: "center",
     justifyContent: "center",
+    borderRadius: 25,
   },
-  unchekBox: {
-    marginTop: 50,
-    height: 40,
-    width: 40,
-    borderWidth: 2,
-    borderColor: "#29b6be",
-    alignItems: "center",
-    justifyContent: "center",
-  },
+
   unchekBox1: {
-    marginTop: 50,
-    height: 50,
-    width: 50,
+    height: 40,
+    width: 40,
     borderWidth: 2,
     borderColor: "#29b6be",
     alignItems: "center",
     justifyContent: "center",
-    borderRadius: 18,
+    borderRadius: 25,
   },
   input2: {
-    marginTop: 50,
+    width: "45%",
+    marginTop: 60,
+    // borderColor: "#29b6be",
+    // borderWidth: 1,
     borderBottomColor: "#29b6be",
-    borderBottomWidth: 2,
+    borderBottomWidth: 1,
   },
   button1: {
     marginTop: 40,
@@ -195,7 +244,7 @@ const styles = StyleSheet.create({
     // backgroundColor: "#29b6be",
   },
   button: {
-    marginTop: 40,
+    marginTop: 120,
     alignItems: "center",
     justifyContent: "center",
     borderWidth: 2,

@@ -141,7 +141,8 @@ export default function App() {
                       <Stack.Screen
                         name="Offer"
                         options={{
-                          headerTitle: () => <Logo />,
+                          header: () => null,
+                          animationEnabled: false,
                         }}
                       >
                         {(props) => <OfferScreen {...props} />}
@@ -173,14 +174,7 @@ export default function App() {
                       >
                         {() => <SearchScreen setData={setData} data={data} />}
                       </Stack.Screen>
-                      <Stack.Screen
-                        name="Sort"
-                        options={{
-                          headerTitle: () => <Logo />,
-                        }}
-                      >
-                        {() => <SortScreen />}
-                      </Stack.Screen>
+
                       <Stack.Screen
                         name="Price"
                         options={{
@@ -210,7 +204,8 @@ export default function App() {
                       <Stack.Screen
                         name="Publish"
                         options={{
-                          headerTitle: () => <Logo />,
+                          header: () => null,
+                          animationEnabled: false,
                         }}
                       >
                         {() => (

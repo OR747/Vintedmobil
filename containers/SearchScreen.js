@@ -9,7 +9,7 @@ import {
   Image,
 } from "react-native";
 import axios from "axios";
-import { FlatList } from "react-native-gesture-handler";
+import { FlatList, ScrollView } from "react-native-gesture-handler";
 export default function SearchScreen({ setData, data }) {
   const navigation = useNavigation();
 
@@ -36,17 +36,10 @@ export default function SearchScreen({ setData, data }) {
   return isLoading ? (
     <ActivityIndicator size="large" color="#29b6be" />
   ) : (
-    <View style={styles.container}>
+    <ScrollView style={styles.container}>
       <View style={styles.container1}>
         <Button
-          title="Classer par"
-          onPress={() => {
-            navigation.navigate("Sort");
-          }}
-        />
-
-        <Button
-          title="Prix"
+          title="Trier par"
           onPress={() => {
             navigation.navigate("Price");
           }}
@@ -96,7 +89,7 @@ export default function SearchScreen({ setData, data }) {
           }}
         />
       </View>
-    </View>
+    </ScrollView>
   );
 }
 const styles = StyleSheet.create({

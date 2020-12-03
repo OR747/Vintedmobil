@@ -91,6 +91,7 @@ export default function OfferScreen({ route }) {
 const styles = StyleSheet.create({
   container: {
     paddingHorizontal: 15,
+    marginTop: 100,
   },
   img: {
     height: 65,

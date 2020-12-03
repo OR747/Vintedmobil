@@ -1,8 +1,22 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { useNavigation } from "@react-navigation/core";
-import { Button, Text, View, StyleSheet, TextInput } from "react-native";
+import {
+  Button,
+  Text,
+  View,
+  StyleSheet,
+  TextInput,
+  TouchableOpacity,
+} from "react-native";
+import { ScrollView } from "react-native-gesture-handler";
+import axios from "axios";
+import AsyncStorage from "@react-native-community/async-storage";
+import { FontAwesome5, MaterialIcons } from "@expo/vector-icons";
+import colors from "../assets/colors";
+import * as ImagePicker from "expo-image-picker";
+import * as Permissions from "expo-permissions";
 
-export default function PublishScreen() {
+export default function PublishScreen({ setToken, userId }) {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [selectedBrand, setSelectedBrand] = useState("");
@@ -11,19 +25,75 @@ export default function PublishScreen() {
   const [condition, setCondition] = useState("");
   const [city, setCity] = useState("");
   const [price, setPrice] = useState("");
-
+  const [newPicture, setNewPicture] = useState(null);
   const navigation = useNavigation();
+
+  const formData = new FormData();
+  formData.append("title", title);
+  formData.append("description", description);
+  formData.append("brand", selectedBrand);
+  formData.append("size", selectedSize);
+  formData.append("color", color);
+  formData.append("condition", condition);
+  formData.append("city", city);
+  formData.append("price", price);
+
+  const handleSubmit = async () => {
+    try {
+      const token = await AsyncStorage.getItem("userToken");
+      console.log(token);
+      console.log(userId);
+      const response = await axios.post(
+        "https://lereacteur-vinted-api.herokuapp.com/offer/publish",
+        formData,
+        { headers: { authorization: "Bearer " + token } }
+      );
+      console.log("coucou");
+      if (response.data.token && response.data._id) {
+        setToken(response.data.token);
+        setId(response.data._id);
+        navigation.navigate("Offer");
+      } else {
+        alert("Une erreur est survenue");
+      }
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
+
   return (
-    <View style={styles.container}>
-      <View style={styles.input1}>
-        <Text>Titre</Text>
-        <TextInput
-          placeholder="ex: Chemise Sézane verte"
-          onChangeText={(text) => {
-            setTitle(text);
-          }}
-        />
+    <ScrollView style={styles.container}>
+      <View style={styles.topView}>
+        <TouchableOpacity style={styles.pictureView}>
+          {newPicture ? (
+            <Image
+              source={{ uri: newPicture }}
+              style={styles.picture}
+              resizeMode="cover"
+            />
+          ) : (
+            <Text>+ Ajouter photos</Text>
+          )}
+        </TouchableOpacity>
+        <View style={styles.icons}>
+          <TouchableOpacity
+            onPress={() => {
+              uploadPicture();
+            }}
+          >
+            <MaterialIcons name="photo-library" size={30} color={colors.grey} />
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={styles.iconButton}
+            onPress={() => {
+              takePicture();
+            }}
+          >
+            <FontAwesome5 name="camera" size={30} color={colors.grey} />
+          </TouchableOpacity>
+        </View>
       </View>
+
       <View style={styles.input1}>
         <Text>Titre</Text>
         <TextInput
@@ -101,58 +171,85 @@ export default function PublishScreen() {
           }}
         />
       </View>
-      <Button
-        title="Go to Home"
-        onPress={() => {
-          navigation.navigate("Home", { userId: 123 });
-        }}
-      />
-    </View>
+      <View style={styles.button}>
+        <Button
+          title="Ajouter"
+          color="black"
+          onPress={() => {
+            handleSubmit();
+          }}
+        />
+      </View>
+    </ScrollView>
   );
 }
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "white",
+    paddingHorizontal: 10,
     //justifyContent: "center",
   },
+  //images et photos
+  picture: {
+    height: 150,
+    width: 150,
+    borderRadius: 150,
+  },
+  pictureView: {
+    marginVertical: 20,
+    marginTop: 80,
+    width: 170,
+    height: 170,
+    // borderRadius: 170,
+    alignItems: "center",
+    justifyContent: "center",
+    borderColor: "#29b6be",
+    borderWidth: 2,
+  },
+  topView: {
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center",
+    marginBottom: 30,
+  },
+  icons: {
+    marginLeft: 20,
+  },
+  iconButton: {
+    marginTop: 40,
+  },
+  view: {
+    height: 30,
+  },
+  //input
 
   input1: {
     marginTop: 30,
     borderBottomColor: "#D7D7D7",
     borderBottomWidth: 2,
-    marginLeft: 30,
-    marginRight: 30,
   },
   input2: {
     marginTop: 50,
     borderBottomColor: "#D7D7D7",
     borderBottomWidth: 2,
-    marginLeft: 30,
-    marginRight: 30,
   },
   input3: {
     height: 100,
 
-    marginLeft: 30,
-    marginRight: 30,
     backgroundColor: "white",
     marginTop: 50,
     borderWidth: 2,
     borderColor: "#D7D7D7",
   },
   button: {
-    backgroundColor: "white",
-
-    width: 210,
-    height: 65,
-    marginTop: 30,
+    marginTop: 60,
     alignItems: "center",
-    borderRadius: 90,
-    marginLeft: 105,
-    borderWidth: 2,
-    borderColor: "#FC8083",
     justifyContent: "center",
-    alignContent: "center",
+    borderWidth: 2,
+    borderColor: "#29b6be",
+    height: 55,
+    borderRadius: 4,
+    backgroundColor: "#29b6be",
   },
 });
