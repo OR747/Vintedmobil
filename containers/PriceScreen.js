@@ -9,7 +9,7 @@ import {
   TouchableOpacity,
 } from "react-native";
 import axios from "axios";
-import { set } from "react-native-reanimated";
+
 export default function PriceScreen({ setData }) {
   const [priceMin, setPriceMin] = useState("");
   const [priceMax, setPriceMax] = useState("");
@@ -45,13 +45,21 @@ export default function PriceScreen({ setData }) {
       }
       numberOfParams++;
     }
+    if (priceMax) {
+      if (numberOfParams === 0) {
+        filters = filters + `?priceMax=${Number(priceMax)}`;
+      } else {
+        filters = filters + `&priceMax=${Number(priceMax)}`;
+      }
+      numberOfParams++;
+    }
 
     console.log("ok=>", filters);
     try {
       const response = await axios.get(
         `https://lereacteur-vinted-api.herokuapp.com/offers?filters=${filters}`
       );
-
+      // console.log(response.data.offers);
       setData(response.data);
       navigation.navigate("Recherche");
     } catch (error) {
@@ -92,7 +100,9 @@ export default function PriceScreen({ setData }) {
           }}
         >
           {priceDesc === true ? (
-            <Text style={{ color: "green" }}>desc</Text>
+            <Text style={{ backgroundColor: "#29b6be", color: "black" }}>
+              desc
+            </Text>
           ) : (
             <Text style={{ color: "red" }}>no desc</Text>
           )}
@@ -106,11 +116,14 @@ export default function PriceScreen({ setData }) {
               setPriceDesc(true);
             } else {
               setPriceAsc(true);
+              // setPriceDesc(true);
             }
           }}
         >
           {priceAsc === true ? (
-            <Text style={{ color: "green" }}>asc</Text>
+            <Text style={{ backgroundColor: "#29b6be", color: "black" }}>
+              asc
+            </Text>
           ) : (
             <Text style={{ color: "red" }}>no asc</Text>
           )}
