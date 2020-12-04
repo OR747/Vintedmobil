@@ -16,46 +16,47 @@ import colors from "../assets/colors";
 import * as ImagePicker from "expo-image-picker";
 import * as Permissions from "expo-permissions";
 
-export default function PublishScreen({ setToken, userId }) {
-  const [title, setTitle] = useState("");
-  const [description, setDescription] = useState("");
-  const [selectedBrand, setSelectedBrand] = useState("");
-  const [selectedSize, setSelectedSize] = useState("");
-  const [color, setColor] = useState("");
-  const [condition, setCondition] = useState("");
-  const [city, setCity] = useState("");
-  const [price, setPrice] = useState("");
+export default function PublishScreen({ setToken, userId, userToken }) {
+  console.log(userToken);
+  const [title, setTitle] = useState("test");
+  const [description, setDescription] = useState("test");
+  const [selectedBrand, setSelectedBrand] = useState("test");
+  const [selectedSize, setSelectedSize] = useState("test");
+  const [color, setColor] = useState("test");
+  const [condition, setCondition] = useState("test");
+  const [city, setCity] = useState("test");
+  const [price, setPrice] = useState(2);
   const [newPicture, setNewPicture] = useState(null);
   const navigation = useNavigation();
 
-  const formData = new FormData();
-  formData.append("title", title);
-  formData.append("description", description);
-  formData.append("brand", selectedBrand);
-  formData.append("size", selectedSize);
-  formData.append("color", color);
-  formData.append("condition", condition);
-  formData.append("city", city);
-  formData.append("price", price);
-
   const handleSubmit = async () => {
     try {
-      const token = await AsyncStorage.getItem("userToken");
-      console.log(token);
-      console.log(userId);
+      const formData = new FormData();
+      formData.append("title", title);
+      formData.append("description", description);
+      formData.append("brand", selectedBrand);
+      formData.append("size", selectedSize);
+      formData.append("color", color);
+      formData.append("condition", condition);
+      formData.append("city", city);
+      formData.append("price", price);
       const response = await axios.post(
-        "https://lereacteur-vinted-api.herokuapp.com/offer/publish",
+        `https://lereacteur-vinted-api.herokuapp.com/offer/publish`,
         formData,
-        { headers: { authorization: "Bearer " + token } }
+        {
+          headers: {
+            Authorization: "Bearer " + userToken,
+          },
+        }
       );
       console.log("coucou");
-      if (response.data.token && response.data._id) {
-        setToken(response.data.token);
-        setId(response.data._id);
-        navigation.navigate("Offer");
-      } else {
-        alert("Une erreur est survenue");
-      }
+      // if (response.data.token && response.data._id) {
+      // setToken(response.data.token);
+      // setId(response.data._id);
+      // navigation.navigate("Offer");
+      // } else {
+      //   alert("Une erreur est survenue");
+      // }
     } catch (error) {
       console.log(error.message);
     }

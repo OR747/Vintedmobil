@@ -211,6 +211,7 @@ export default function App() {
                         {() => (
                           <PublishScreen
                             setToken={setToken}
+                            userToken={userToken}
                             setId={setId}
                             userId={userId}
                           />

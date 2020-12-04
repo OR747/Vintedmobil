@@ -40,7 +40,9 @@ export default function HomeScreen() {
   ) : (
     <View style={styles.container}>
       <FlatList
+        style={styles.container0}
         data={data.offers}
+        keyExtractor={(item) => item._id}
         renderItem={({ item }) => {
           return (
             <TouchableOpacity
@@ -51,7 +53,7 @@ export default function HomeScreen() {
                 });
               }}
             >
-              <View style={styles.image}>
+              {/* <View style={styles.image}>
                 <Image
                   source={{
                     uri: item.owner.account.avatar.url,
@@ -59,7 +61,7 @@ export default function HomeScreen() {
                   resizeMode="cover"
                   style={styles.img}
                 ></Image>
-              </View>
+              </View> */}
               <View>
                 <Text style={{ color: "black", fontSize: 20 }}>
                   {item.owner.account.username}
@@ -92,7 +94,14 @@ export default function HomeScreen() {
   );
 }
 const styles = StyleSheet.create({
-  container: { flex: 1, paddingHorizontal: 15, paddingTop: 80 },
+  container: {
+    flex: 1,
+    paddingHorizontal: 15,
+    paddingTop: 80,
+    // borderWidth: 2,
+    // borderColor: "#FC8083",
+  },
+  container0: { borderWidth: 2, borderColor: "#FC8083" },
   img: {
     height: 65,
     width: 65,
