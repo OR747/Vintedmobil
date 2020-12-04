@@ -7,6 +7,7 @@ import {
   StyleSheet,
   TextInput,
   TouchableOpacity,
+  Image,
 } from "react-native";
 import { ScrollView } from "react-native-gesture-handler";
 import axios from "axios";
@@ -26,8 +27,9 @@ export default function PublishScreen({ setToken, userId, userToken }) {
   const [condition, setCondition] = useState("test");
   const [city, setCity] = useState("test");
   const [price, setPrice] = useState(2);
-  const [newPicture, setNewPicture] = useState(null);
+  const [picture, setPicture] = useState(null);
   const navigation = useNavigation();
+  const [displayMessage, setDisplayMessage] = useState(null);
 
   const handleSubmit = async () => {
     try {
@@ -40,6 +42,18 @@ export default function PublishScreen({ setToken, userId, userToken }) {
       formData.append("condition", condition);
       formData.append("city", city);
       formData.append("price", price);
+      //photo
+      const uri = picture;
+      const uriParts = uri.split(".");
+      const fileType = uriParts[1];
+      formData.append("photo", {
+        uri,
+        name: `userPicture`,
+        type: `image/${fileType}`,
+      });
+
+      console.log(formData);
+
       const response = await axios.post(
         `https://lereacteur-vinted-api.herokuapp.com/offer/publish`,
         formData,
@@ -50,25 +64,48 @@ export default function PublishScreen({ setToken, userId, userToken }) {
         }
       );
       console.log("coucou");
-      // if (response.data.token && response.data._id) {
-      // setToken(response.data.token);
-      // setId(response.data._id);
-      // navigation.navigate("Offer");
-      // } else {
-      //   alert("Une erreur est survenue");
-      // }
+
+      if (response.data) {
+        navigation.navigate("Offer");
+      } else {
+        alert("Une erreur est survenue");
+      }
     } catch (error) {
       console.log(error.message);
     }
   };
+  // get picture from image library
 
+  const uploadPicture = async () => {
+    const { status } = await Permissions.askAsync(Permissions.CAMERA_ROLL);
+    if (status === "granted") {
+      const result = await ImagePicker.launchImageLibraryAsync();
+      if (!result.cancelled) {
+        setPicture(result.uri);
+      }
+    }
+    setDisplayMessage(false);
+  };
+
+  // get picture from camera
+
+  // const takePicture = async () => {
+  //   const { status } = await Permissions.askAsync(Permissions.CAMERA);
+  //   if (status === "granted") {
+  //     const result = await ImagePicker.launchCameraAsync();
+  //     if (!result.cancelled) {
+  //       setNewPicture(result.uri);
+  //     }
+  //   }
+  //   setDisplayMessage(false);
+  // };
   return (
     <ScrollView style={styles.container}>
       <View style={styles.topView}>
         <TouchableOpacity style={styles.pictureView}>
-          {newPicture ? (
+          {picture ? (
             <Image
-              source={{ uri: newPicture }}
+              source={{ uri: picture }}
               style={styles.picture}
               resizeMode="cover"
             />
@@ -84,14 +121,14 @@ export default function PublishScreen({ setToken, userId, userToken }) {
           >
             <MaterialIcons name="photo-library" size={30} color={colors.grey} />
           </TouchableOpacity>
-          <TouchableOpacity
+          {/* <TouchableOpacity
             style={styles.iconButton}
             onPress={() => {
               takePicture();
             }}
           >
             <FontAwesome5 name="camera" size={30} color={colors.grey} />
-          </TouchableOpacity>
+          </TouchableOpacity> */}
         </View>
       </View>
 

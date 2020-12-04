@@ -44,6 +44,7 @@ export default function HomeScreen() {
         data={data.offers}
         keyExtractor={(item) => item._id}
         renderItem={({ item }) => {
+          // console.log(item);
           return (
             <TouchableOpacity
               style={styles.touchableOpacity}
@@ -53,15 +54,17 @@ export default function HomeScreen() {
                 });
               }}
             >
-              {/* <View style={styles.image}>
-                <Image
-                  source={{
-                    uri: item.owner.account.avatar.url,
-                  }}
-                  resizeMode="cover"
-                  style={styles.img}
-                ></Image>
-              </View> */}
+              <View style={styles.image}>
+                {item.owner.account.avatar && (
+                  <Image
+                    source={{
+                      uri: item.owner.account.avatar.url,
+                    }}
+                    resizeMode="cover"
+                    style={styles.img}
+                  ></Image>
+                )}
+              </View>
               <View>
                 <Text style={{ color: "black", fontSize: 20 }}>
                   {item.owner.account.username}

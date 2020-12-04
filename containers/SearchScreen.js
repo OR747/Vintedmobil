@@ -48,17 +48,20 @@ export default function SearchScreen({ setData, data }) {
       <View style={styles.container2}>
         <FlatList
           data={data.offers}
+          keyExtractor={(item) => item._id}
           renderItem={({ item }) => {
             return (
               <View>
                 <View style={styles.image}>
-                  <Image
-                    source={{
-                      uri: item.owner.account.avatar.url,
-                    }}
-                    resizeMode="cover"
-                    style={styles.img}
-                  ></Image>
+                  {item.owner.account.avatar && (
+                    <Image
+                      source={{
+                        uri: item.owner.account.avatar.url,
+                      }}
+                      resizeMode="cover"
+                      style={styles.img}
+                    ></Image>
+                  )}
                 </View>
                 <View>
                   <Text style={{ color: "black", fontSize: 20 }}>
