@@ -135,7 +135,7 @@ export default function App() {
                           animationEnabled: false,
                         }}
                       >
-                        {() => <HomeScreen />}
+                        {(props) => <HomeScreen {...props} />}
                       </Stack.Screen>
 
                       <Stack.Screen

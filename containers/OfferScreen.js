@@ -9,7 +9,7 @@ import {
   TouchableOpacity,
 } from "react-native";
 import axios from "axios";
-
+import { FontAwesome } from "@expo/vector-icons";
 export default function OfferScreen({ route }) {
   const { params } = useRoute();
   const [data, setData] = useState({});
@@ -40,15 +40,6 @@ export default function OfferScreen({ route }) {
     <ActivityIndicator size="large" color="#29b6be" />
   ) : (
     <View style={styles.container}>
-      <View>
-        <Text style={{ color: "black", fontSize: 16 }}>
-          {data.product_price}€
-        </Text>
-      </View>
-      <View style={styles.container1}>
-        <Text>{data.product_details[0].MARQUE}</Text>
-        <Text>{data.product_details[1].TAILLE}</Text>
-      </View>
       <View style={styles.image}>
         <Image
           source={{
@@ -58,20 +49,40 @@ export default function OfferScreen({ route }) {
           style={styles.img1}
         ></Image>
       </View>
-      <View style={styles.image}>
-        <Image
-          source={{
-            uri: data.owner.account.avatar.url,
-          }}
-          resizeMode="cover"
-          style={styles.img}
-        ></Image>
+      <View style={styles.compte}>
+        <View style={styles.image}>
+          <Image
+            source={{
+              uri: data.owner.account.avatar.url,
+            }}
+            resizeMode="cover"
+            style={styles.img}
+          ></Image>
+        </View>
+        <View style={styles.owner}>
+          <Text style={{ color: "black", fontSize: 16 }}>
+            {data.owner.account.username}
+          </Text>
+          <View style={styles.stars}>
+            <FontAwesome name="star" size={14} color="#F5CC0B" />
+            <FontAwesome name="star" size={14} color="#F5CC0B" />
+            <FontAwesome name="star" size={14} color="#F5CC0B" />
+            <FontAwesome name="star" size={14} color="#F5CC0B" />
+            <FontAwesome name="star" size={14} color="#F5CC0B" />
+            <Text style={{ color: "gray", marginLeft: 10, fontSize: 14 }}>
+              2 évaluations
+            </Text>
+          </View>
+        </View>
       </View>
-      <View>
-        <Text style={{ color: "black", fontSize: 20 }}>
-          {data.owner.account.username}
-        </Text>
+
+      <View style={styles.container1}>
+        <Text>{data.product_details[0].MARQUE}</Text>
+        <Text>{data.product_details[1].TAILLE}</Text>
       </View>
+      <Text style={{ color: "black", fontSize: 16 }}>
+        {data.product_price}€
+      </Text>
 
       <TouchableOpacity
         onPress={() => {
@@ -93,9 +104,18 @@ const styles = StyleSheet.create({
     paddingHorizontal: 15,
     marginTop: 100,
   },
+  compte: {
+    borderWidth: 2,
+    borderColor: "#FC8083",
+    flexDirection: "row",
+    alignItems: "center",
+    marginTop: 10,
+  },
+  owner: { marginLeft: 15 },
+  stars: { flexDirection: "row" },
   img: {
-    height: 65,
-    width: 65,
+    height: 55,
+    width: 55,
     borderRadius: 50,
     //borderWidth: 2,
     // borderColor: "#FC8083",
@@ -103,6 +123,6 @@ const styles = StyleSheet.create({
   },
   img1: {
     height: 230,
-    width: 450,
+    width: "100%",
   },
 });

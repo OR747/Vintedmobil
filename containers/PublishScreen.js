@@ -46,13 +46,13 @@ export default function PublishScreen({ setToken, userId, userToken }) {
       const uri = picture;
       const uriParts = uri.split(".");
       const fileType = uriParts[1];
-      formData.append("photo", {
+      formData.append("picture", {
         uri,
         name: `userPicture`,
         type: `image/${fileType}`,
       });
 
-      console.log(formData);
+      //console.log(formData);
 
       const response = await axios.post(
         `https://lereacteur-vinted-api.herokuapp.com/offer/publish`,
@@ -103,15 +103,13 @@ export default function PublishScreen({ setToken, userId, userToken }) {
     <ScrollView style={styles.container}>
       <View style={styles.topView}>
         <TouchableOpacity style={styles.pictureView}>
-          {picture ? (
-            <Image
-              source={{ uri: picture }}
-              style={styles.picture}
-              resizeMode="cover"
-            />
-          ) : (
-            <Text>+ Ajouter photos</Text>
-          )}
+          <Image
+            source={{ uri: picture }}
+            style={styles.picture}
+            resizeMode="cover"
+          />
+
+          <Text>+ Ajouter photos</Text>
         </TouchableOpacity>
         <View style={styles.icons}>
           <TouchableOpacity

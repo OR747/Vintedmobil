@@ -17,7 +17,7 @@ export default function HomeLoginScreen() {
             Vends sans frais ce que
           </Text>
           <Text style={{ fontSize: 27, color: "#515151" }}>
-            tu portes plus.
+            tu ne portes plus.
           </Text>
           <Text style={{ fontSize: 27, color: "#515151" }}>
             Rejoignez-nous!

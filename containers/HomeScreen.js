@@ -11,7 +11,7 @@ import {
   TouchableOpacity,
 } from "react-native";
 import axios from "axios";
-
+import { EvilIcons } from "@expo/vector-icons";
 export default function HomeScreen() {
   const navigation = useNavigation();
   const [data, setData] = useState({});
@@ -54,21 +54,23 @@ export default function HomeScreen() {
                 });
               }}
             >
-              <View style={styles.image}>
-                {item.owner.account.avatar && (
-                  <Image
-                    source={{
-                      uri: item.owner.account.avatar.url,
-                    }}
-                    resizeMode="cover"
-                    style={styles.img}
-                  ></Image>
-                )}
-              </View>
-              <View>
-                <Text style={{ color: "black", fontSize: 20 }}>
-                  {item.owner.account.username}
-                </Text>
+              <View style={styles.compte}>
+                <View style={styles.image}>
+                  {item.owner.account.avatar && (
+                    <Image
+                      source={{
+                        uri: item.owner.account.avatar.url,
+                      }}
+                      // resizeMode="cover"
+                      style={styles.img}
+                    ></Image>
+                  )}
+                </View>
+                <View>
+                  <Text style={{ color: "black", fontSize: 20 }}>
+                    {item.owner.account.username}
+                  </Text>
+                </View>
               </View>
               <View style={styles.image}>
                 <Image
@@ -79,15 +81,19 @@ export default function HomeScreen() {
                   style={styles.img1}
                 ></Image>
               </View>
-              <View style={styles.container1}>
+              <View style={styles.price}>
+                <Text style={{ color: "black", fontSize: 20 }}>
+                  {item.product_price}€
+                </Text>
+                <View style={styles.icone}>
+                  <EvilIcons name="heart" size={24} color="gray" />
+                  <Text style={{ color: "gray" }}> 2</Text>
+                </View>
+              </View>
+              <View style={styles.container2}>
                 <Text>{item.product_details[0].MARQUE}</Text>
                 <Text>{item.product_details[1].TAILLE}</Text>
                 {/* <Text>{item._id}</Text> */}
-              </View>
-              <View>
-                <Text style={{ color: "black", fontSize: 16 }}>
-                  {item.product_price}€
-                </Text>
               </View>
             </TouchableOpacity>
           );
@@ -97,6 +103,7 @@ export default function HomeScreen() {
   );
 }
 const styles = StyleSheet.create({
+  // les containers
   container: {
     flex: 1,
     paddingHorizontal: 15,
@@ -104,17 +111,52 @@ const styles = StyleSheet.create({
     // borderWidth: 2,
     // borderColor: "#FC8083",
   },
-  container0: { borderWidth: 2, borderColor: "#FC8083" },
+  container0: {
+    borderWidth: 2,
+    borderColor: "black",
+    // flexDirection: "row",
+    // flexWrap: "wrap",
+  },
+
+  compte: {
+    // borderWidth: 2,
+    // borderColor: "#FC8083",
+    flexDirection: "row",
+    alignItems: "center",
+  },
+  // container2: { borderWidth: 2, borderColor: "#FC8083" },
+
+  //touche
+  touchableOpacity: {
+    borderWidth: 2,
+    borderColor: "#FC8083",
+    width: "100%",
+  },
+
+  //price
+  price: {
+    // borderWidth: 2,
+    // borderColor: "#FC8083",
+    flexDirection: "row",
+    justifyContent: "space-between",
+  },
+
+  //icones
+
+  // icone: { borderWidth: 2, borderColor: "#FC8083", flexDirection: "row" },
+
+  //les images,
+
   img: {
     height: 65,
     width: 65,
     borderRadius: 50,
-    //borderWidth: 2,
+    // borderWidth: 2,
     // borderColor: "#FC8083",
     // top: -30,
   },
   img1: {
     height: 230,
-    width: 450,
+    width: "100%",
   },
 });
