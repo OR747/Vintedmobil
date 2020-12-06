@@ -7,6 +7,7 @@ import {
   StyleSheet,
   TextInput,
   TouchableOpacity,
+  Image,
 } from "react-native";
 import axios from "axios";
 import { Octicons } from "@expo/vector-icons";
@@ -79,7 +80,25 @@ export default function PriceScreen({ setData }) {
   return (
     <View style={styles.container0}>
       <KeyboardAwareScrollView>
-        <Text style={{ fontSize: 18, marginTop: 90 }}>Trier par</Text>
+        <View style={styles.logo}>
+          <Image
+            source={require("../assets/logoVinted.jpg")}
+            resizeMode="cover"
+            style={{ height: 45, width: 75 }}
+          ></Image>
+        </View>
+        <View style={styles.text1}>
+          <Text
+            style={{
+              color: "gray",
+              fontSize: 24,
+              marginTop: 20,
+            }}
+          >
+            Trier par
+          </Text>
+        </View>
+
         <View style={styles.container1}>
           <View style={styles.input2}>
             <Text style={{ color: "gray" }}>Prix minimum</Text>
@@ -191,10 +210,19 @@ const styles = StyleSheet.create({
     // marginTop: 90,
     paddingHorizontal: 15,
   },
+  logo: {
+    height: 55,
+    width: "100%",
+    // borderWidth: 2,
+    // borderColor: "#FC8083",
+    alignItems: "center",
+    marginTop: +50,
+  },
+  text1: { borderBottomWidth: 1, borderBottomColor: "gray" },
   container1: {
     flexDirection: "row",
     justifyContent: "space-between",
-    marginTop: 50,
+    // marginTop: 10,
   },
   container12: {
     flexDirection: "row",
@@ -258,5 +286,5 @@ const styles = StyleSheet.create({
     borderRadius: 4,
     backgroundColor: "#29b6be",
   },
-  touchstyle: { marginTop: 30 },
+  touchstyle: { marginTop: 10 },
 });

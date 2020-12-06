@@ -8,6 +8,7 @@ import {
   Image,
   TouchableOpacity,
 } from "react-native";
+
 import axios from "axios";
 import { FontAwesome } from "@expo/vector-icons";
 export default function OfferScreen({ route }) {
@@ -51,13 +52,15 @@ export default function OfferScreen({ route }) {
       </View>
       <View style={styles.compte}>
         <View style={styles.image}>
-          <Image
-            source={{
-              uri: data.owner.account.avatar.url,
-            }}
-            resizeMode="cover"
-            style={styles.img}
-          ></Image>
+          {data.owner.account.avatar && (
+            <Image
+              source={{
+                uri: data.owner.account.avatar.url,
+              }}
+              resizeMode="cover"
+              style={styles.img}
+            ></Image>
+          )}
         </View>
         <View style={styles.owner}>
           <Text style={{ color: "black", fontSize: 16 }}>

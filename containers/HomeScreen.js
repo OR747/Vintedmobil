@@ -39,10 +39,21 @@ export default function HomeScreen() {
     <ActivityIndicator size="large" color="#29b6be" />
   ) : (
     <View style={styles.container}>
+      <View style={styles.logo}>
+        <Image
+          source={require("../assets/logoVinted.jpg")}
+          resizeMode="cover"
+          style={{ height: 45, width: 75 }}
+        ></Image>
+      </View>
+
+      <View style={styles.text}>
+        <Text style={{ fontSize: 24, color: "gray" }}>Annonces</Text>
+      </View>
       <FlatList
         style={styles.container0}
         data={data.offers}
-        keyExtractor={(item) => item._id}
+        numColumns={2}
         renderItem={({ item }) => {
           // console.log(item);
           return (
@@ -61,7 +72,7 @@ export default function HomeScreen() {
                       source={{
                         uri: item.owner.account.avatar.url,
                       }}
-                      // resizeMode="cover"
+                      resizeMode="cover"
                       style={styles.img}
                     ></Image>
                   )}
@@ -91,13 +102,18 @@ export default function HomeScreen() {
                 </View>
               </View>
               <View style={styles.container2}>
-                <Text>{item.product_details[0].MARQUE}</Text>
-                <Text>{item.product_details[1].TAILLE}</Text>
+                <Text style={{ color: "gray" }}>
+                  {item.product_details[0].MARQUE}
+                </Text>
+                <Text style={{ color: "gray" }}>
+                  {item.product_details[1].TAILLE}
+                </Text>
                 {/* <Text>{item._id}</Text> */}
               </View>
             </TouchableOpacity>
           );
         }}
+        // keyExtractor={(item) => item._id}
       />
     </View>
   );
@@ -108,19 +124,32 @@ const styles = StyleSheet.create({
     flex: 1,
     paddingHorizontal: 15,
     paddingTop: 80,
+    backgroundColor: "white",
     // borderWidth: 2,
     // borderColor: "#FC8083",
   },
+  text: { borderBottomWidth: 1, borderBottomColor: "gray" },
+  logo: {
+    height: 55,
+    width: "100%",
+    // borderWidth: 2,
+    // borderColor: "#FC8083",
+    alignItems: "center",
+    marginTop: -50,
+  },
   container0: {
-    borderWidth: 2,
-    borderColor: "black",
+    // borderWidth: 2,
+    // borderColor: "black",
     // flexDirection: "row",
     // flexWrap: "wrap",
+    marginTop: 10,
   },
 
   compte: {
     // borderWidth: 2,
     // borderColor: "#FC8083",
+    width: "100%",
+    height: 40,
     flexDirection: "row",
     alignItems: "center",
   },
@@ -128,9 +157,13 @@ const styles = StyleSheet.create({
 
   //touche
   touchableOpacity: {
-    borderWidth: 2,
-    borderColor: "#FC8083",
-    width: "100%",
+    height: 360,
+    width: 187,
+    // borderWidth: 2,
+    // borderColor: "#FC8083",
+    // width: "100%",
+    marginBottom: 10,
+    marginRight: 5,
   },
 
   //price
@@ -139,18 +172,19 @@ const styles = StyleSheet.create({
     // borderColor: "#FC8083",
     flexDirection: "row",
     justifyContent: "space-between",
+    marginTop: 10,
   },
 
   //icones
 
-  // icone: { borderWidth: 2, borderColor: "#FC8083", flexDirection: "row" },
+  icone: { flexDirection: "row" },
 
   //les images,
 
   img: {
-    height: 65,
-    width: 65,
-    borderRadius: 50,
+    height: 25,
+    width: 25,
+    borderRadius: 10,
     // borderWidth: 2,
     // borderColor: "#FC8083",
     // top: -30,
@@ -158,5 +192,6 @@ const styles = StyleSheet.create({
   img1: {
     height: 230,
     width: "100%",
+    borderRadius: 10,
   },
 });
