@@ -52,7 +52,7 @@ export default function SearchScreen({ setData, data }) {
       <View style={styles.container1}>
         <Button
           color="gray"
-          title="Trier par"
+          title="Trie par"
           onPress={() => {
             navigation.navigate("Price");
           }}

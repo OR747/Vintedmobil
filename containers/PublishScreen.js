@@ -100,26 +100,41 @@ export default function PublishScreen({ setToken, userId, userToken }) {
   //   setDisplayMessage(false);
   // };
   return (
-    <ScrollView style={styles.container}>
-      <View style={styles.topView}>
-        <TouchableOpacity style={styles.pictureView}>
-          <Image
-            source={{ uri: picture }}
-            style={styles.picture}
-            resizeMode="cover"
-          />
+    <View style={styles.container}>
+      <View style={styles.logo}>
+        <Image
+          source={require("../assets/logoVinted.jpg")}
+          resizeMode="cover"
+          style={{ height: 45, width: 75 }}
+        ></Image>
+      </View>
+      <View style={styles.text}>
+        <Text style={{ fontSize: 24, color: "gray" }}>Publie une annonce</Text>
+      </View>
+      <ScrollView>
+        <View style={styles.topView}>
+          <TouchableOpacity style={styles.pictureView}>
+            <Image
+              source={{ uri: picture }}
+              style={styles.picture}
+              resizeMode="cover"
+            />
 
-          <Text>+ Ajouter photos</Text>
-        </TouchableOpacity>
-        <View style={styles.icons}>
-          <TouchableOpacity
-            onPress={() => {
-              uploadPicture();
-            }}
-          >
-            <MaterialIcons name="photo-library" size={30} color={colors.grey} />
+            <Text>+ Ajouter photos</Text>
           </TouchableOpacity>
-          {/* <TouchableOpacity
+          <View style={styles.icons}>
+            <TouchableOpacity
+              onPress={() => {
+                uploadPicture();
+              }}
+            >
+              <MaterialIcons
+                name="photo-library"
+                size={30}
+                color={colors.grey}
+              />
+            </TouchableOpacity>
+            {/* <TouchableOpacity
             style={styles.iconButton}
             onPress={() => {
               takePicture();
@@ -127,96 +142,97 @@ export default function PublishScreen({ setToken, userId, userToken }) {
           >
             <FontAwesome5 name="camera" size={30} color={colors.grey} />
           </TouchableOpacity> */}
+          </View>
         </View>
-      </View>
 
-      <View style={styles.input1}>
-        <Text>Titre</Text>
-        <TextInput
-          placeholder="ex: Chemise Sézane verte"
-          onChangeText={(text) => {
-            setTitle(text);
-          }}
-        />
-      </View>
+        <View style={styles.input1}>
+          <Text>Titre</Text>
+          <TextInput
+            placeholder="ex: Chemise Sézane verte"
+            onChangeText={(text) => {
+              setTitle(text);
+            }}
+          />
+        </View>
 
-      <View style={styles.input3}>
-        <Text>Décris ton article</Text>
-        <TextInput
-          placeholder="ex: porté quelquefois, taille correctement"
-          multiline={true}
-          numberOfLines={10}
-          maxLength={200}
-          onChangeText={(text) => {
-            setDescription(text);
-          }}
-        />
-      </View>
-      <View style={styles.input2}>
-        <Text>Marque</Text>
-        <TextInput
-          placeholder="ex: Zara"
-          onChangeText={(text) => {
-            setSelectedBrand(text);
-          }}
-        />
-      </View>
-      <View style={styles.input2}>
-        <Text>Taille</Text>
-        <TextInput
-          placeholder="ex: L / 40 / 12"
-          onChangeText={(text) => {
-            setSelectedSize(text);
-          }}
-        />
-      </View>
+        <View style={styles.input3}>
+          <Text>Décris ton article</Text>
+          <TextInput
+            placeholder="ex: porté quelquefois, taille correctement"
+            multiline={true}
+            numberOfLines={10}
+            maxLength={200}
+            onChangeText={(text) => {
+              setDescription(text);
+            }}
+          />
+        </View>
+        <View style={styles.input2}>
+          <Text>Marque</Text>
+          <TextInput
+            placeholder="ex: Zara"
+            onChangeText={(text) => {
+              setSelectedBrand(text);
+            }}
+          />
+        </View>
+        <View style={styles.input2}>
+          <Text>Taille</Text>
+          <TextInput
+            placeholder="ex: L / 40 / 12"
+            onChangeText={(text) => {
+              setSelectedSize(text);
+            }}
+          />
+        </View>
 
-      <View style={styles.input2}>
-        <Text>Couleur</Text>
-        <TextInput
-          placeholder="ex: Fushia"
-          onChangeText={(text) => {
-            setColor(text);
-          }}
-        />
-      </View>
-      <View style={styles.input2}>
-        <Text>État</Text>
-        <TextInput
-          placeholder="ex:neuf avec étiquette"
-          onChangeText={(text) => {
-            setCondition(text);
-          }}
-        />
-      </View>
-      <View style={styles.input2}>
-        <Text>Ville</Text>
-        <TextInput
-          placeholder="ex: Paris"
-          onChangeText={(text) => {
-            setCity(text);
-          }}
-        />
-      </View>
-      <View style={styles.input2}>
-        <Text>Prix</Text>
-        <TextInput
-          placeholder="0,00 €"
-          onChangeText={(text) => {
-            setPrice(text);
-          }}
-        />
-      </View>
-      <View style={styles.button}>
-        <Button
-          title="Ajouter"
-          color="black"
-          onPress={() => {
-            handleSubmit();
-          }}
-        />
-      </View>
-    </ScrollView>
+        <View style={styles.input2}>
+          <Text>Couleur</Text>
+          <TextInput
+            placeholder="ex: Fushia"
+            onChangeText={(text) => {
+              setColor(text);
+            }}
+          />
+        </View>
+        <View style={styles.input2}>
+          <Text>État</Text>
+          <TextInput
+            placeholder="ex:neuf avec étiquette"
+            onChangeText={(text) => {
+              setCondition(text);
+            }}
+          />
+        </View>
+        <View style={styles.input2}>
+          <Text>Ville</Text>
+          <TextInput
+            placeholder="ex: Paris"
+            onChangeText={(text) => {
+              setCity(text);
+            }}
+          />
+        </View>
+        <View style={styles.input2}>
+          <Text>Prix</Text>
+          <TextInput
+            placeholder="0,00 €"
+            onChangeText={(text) => {
+              setPrice(text);
+            }}
+          />
+        </View>
+        <View style={styles.button}>
+          <Button
+            title="Ajouter"
+            color="black"
+            onPress={() => {
+              handleSubmit();
+            }}
+          />
+        </View>
+      </ScrollView>
+    </View>
   );
 }
 const styles = StyleSheet.create({
@@ -226,6 +242,15 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
     //justifyContent: "center",
   },
+  logo: {
+    height: 55,
+    width: "100%",
+    // borderWidth: 2,
+    // borderColor: "#FC8083",
+    alignItems: "center",
+    marginTop: +40,
+  },
+  text: { borderBottomWidth: 1, borderBottomColor: "gray" },
   //images et photos
   picture: {
     height: 150,
@@ -233,21 +258,21 @@ const styles = StyleSheet.create({
     borderRadius: 150,
   },
   pictureView: {
-    marginVertical: 20,
-    marginTop: 80,
-    width: 170,
+    // marginVertical: 10,
+    marginTop: 30,
+    width: 270,
     height: 170,
     // borderRadius: 170,
     alignItems: "center",
     justifyContent: "center",
-    borderColor: "#29b6be",
+    borderColor: "gray",
     borderWidth: 2,
+    borderRadius: 5,
   },
   topView: {
     flexDirection: "row",
     justifyContent: "center",
     alignItems: "center",
-    marginBottom: 30,
   },
   icons: {
     marginLeft: 20,
