@@ -157,7 +157,7 @@ const styles = StyleSheet.create({
 
   //touche
   touchableOpacity: {
-    height: 360,
+    height: 380,
     width: 187,
     // borderWidth: 2,
     // borderColor: "#FC8083",

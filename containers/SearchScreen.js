@@ -7,6 +7,7 @@ import {
   ActivityIndicator,
   StyleSheet,
   Image,
+  TouchableOpacity,
 } from "react-native";
 import axios from "axios";
 
@@ -65,7 +66,15 @@ export default function SearchScreen({ setData, data }) {
             numColumns={2}
             renderItem={({ item }) => {
               return (
-                <View style={styles.container3}>
+                // <View style={styles.container3}>
+                <TouchableOpacity
+                  style={styles.container3}
+                  onPress={() => {
+                    navigation.navigate("Offer", {
+                      id: item._id,
+                    });
+                  }}
+                >
                   <View style={styles.compte}>
                     <View style={styles.image}>
                       {item.owner.account.avatar && (
@@ -111,7 +120,8 @@ export default function SearchScreen({ setData, data }) {
                     </Text>
                     {/* <Text>{item._id}</Text> */}
                   </View>
-                </View>
+                  {/* </View> */}
+                </TouchableOpacity>
               );
             }}
             keyExtractor={(item) => item._id}

@@ -63,10 +63,12 @@ export default function PublishScreen({ setToken, userId, userToken }) {
           },
         }
       );
-      console.log("coucou");
+      console.log(response.data._id);
 
       if (response.data) {
-        navigation.navigate("Offer");
+        navigation.navigate("Offer", {
+          id: response.data._id,
+        });
       } else {
         alert("Une erreur est survenue");
       }
@@ -120,8 +122,9 @@ export default function PublishScreen({ setToken, userId, userToken }) {
               resizeMode="cover"
             />
 
-            <Text>+ Ajouter photos</Text>
+            <Text> Ajouter une photo</Text>
           </TouchableOpacity>
+
           <View style={styles.icons}>
             <TouchableOpacity
               onPress={() => {
@@ -134,14 +137,14 @@ export default function PublishScreen({ setToken, userId, userToken }) {
                 color={colors.grey}
               />
             </TouchableOpacity>
-            {/* <TouchableOpacity
-            style={styles.iconButton}
-            onPress={() => {
-              takePicture();
-            }}
-          >
-            <FontAwesome5 name="camera" size={30} color={colors.grey} />
-          </TouchableOpacity> */}
+            <TouchableOpacity
+              style={styles.iconButton}
+              onPress={() => {
+                takePicture();
+              }}
+            >
+              <FontAwesome5 name="camera" size={30} color={colors.grey} />
+            </TouchableOpacity>
           </View>
         </View>
 
@@ -154,9 +157,10 @@ export default function PublishScreen({ setToken, userId, userToken }) {
             }}
           />
         </View>
-
+        <Text style={{ marginTop: 20, marginBottom: -40 }}>
+          Décris ton article
+        </Text>
         <View style={styles.input3}>
-          <Text>Décris ton article</Text>
           <TextInput
             placeholder="ex: porté quelquefois, taille correctement"
             multiline={true}
@@ -225,7 +229,7 @@ export default function PublishScreen({ setToken, userId, userToken }) {
         <View style={styles.button}>
           <Button
             title="Ajouter"
-            color="black"
+            color="white"
             onPress={() => {
               handleSubmit();
             }}
@@ -242,6 +246,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
     //justifyContent: "center",
   },
+
   logo: {
     height: 55,
     width: "100%",
@@ -250,6 +255,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     marginTop: +40,
   },
+  touch: { flexDirection: "row" },
   text: { borderBottomWidth: 1, borderBottomColor: "gray" },
   //images et photos
   picture: {
@@ -259,26 +265,33 @@ const styles = StyleSheet.create({
   },
   pictureView: {
     // marginVertical: 10,
-    marginTop: 30,
-    width: 270,
-    height: 170,
+    marginTop: 10,
+    width: "100%",
+    height: 270,
     // borderRadius: 170,
     alignItems: "center",
     justifyContent: "center",
     borderColor: "gray",
-    borderWidth: 2,
+    borderWidth: 0.5,
     borderRadius: 5,
   },
   topView: {
-    flexDirection: "row",
+    // flexDirection: "row",
     justifyContent: "center",
     alignItems: "center",
   },
   icons: {
+    flexDirection: "row",
     marginLeft: 20,
+    // borderWidth: 2,
+    // borderColor: "#FC8083",
+    width: "100%",
+    justifyContent: "space-around",
+    alignItems: "center",
+    marginTop: 20,
   },
   iconButton: {
-    marginTop: 40,
+    // marginLeft: 70,
   },
   view: {
     height: 30,

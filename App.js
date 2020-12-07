@@ -184,6 +184,15 @@ export default function App() {
                       >
                         {() => <PriceScreen setData={setData} />}
                       </Stack.Screen>
+                      <Stack.Screen
+                        name="Offer"
+                        options={{
+                          header: () => null,
+                          animationEnabled: false,
+                        }}
+                      >
+                        {(props) => <OfferScreen {...props} />}
+                      </Stack.Screen>
                     </Stack.Navigator>
                   )}
                 </Tab.Screen>
