@@ -7,10 +7,12 @@ import {
   ActivityIndicator,
   Image,
   TouchableOpacity,
+  Button,
 } from "react-native";
 
 import axios from "axios";
 import { FontAwesome } from "@expo/vector-icons";
+import { EvilIcons } from "@expo/vector-icons";
 export default function OfferScreen({ route }) {
   const { params } = useRoute();
   const [data, setData] = useState({});
@@ -82,23 +84,56 @@ export default function OfferScreen({ route }) {
       <View style={styles.container1}>
         <Text>{data.product_details[0].MARQUE}</Text>
         <Text>{data.product_details[1].TAILLE}</Text>
+
+        <Text style={{ color: "black", fontSize: 16 }}>
+          {data.product_price}€
+        </Text>
       </View>
-      <Text style={{ color: "black", fontSize: 16 }}>
-        {data.product_price}€
-      </Text>
 
       <TouchableOpacity
+        style={styles.description}
         onPress={() => {
           setDisplayAllText(!displayAllText);
         }}
       >
-        <Text
-          numberOfLines={displayAllText === false ? 3 : null}
-          style={styles.descirption}
-        >
+        <Text numberOfLines={displayAllText === false ? 3 : null}>
           {data.product_description}
         </Text>
       </TouchableOpacity>
+
+      <View style={styles.commande}>
+        {/* <TouchableOpacity
+          style={styles.button}
+          onPress={() => {
+            "";
+          }}
+        >
+          {" "}
+          <View style={styles.icone}>
+            <EvilIcons name="heart" size={24} color="gray" />
+            <Text style={{ color: "gray" }}> 2</Text>
+          </View>
+          <Text>Favoris</Text>
+        </TouchableOpacity> */}
+        <View style={styles.button1}>
+          <Button
+            title="Envoyer un message"
+            color="gray"
+            onPress={() => {
+              "";
+            }}
+          />
+        </View>
+        <View style={styles.button}>
+          <Button
+            title="Acheter"
+            color="white"
+            onPress={() => {
+              "";
+            }}
+          />
+        </View>
+      </View>
     </View>
   );
 }
@@ -127,5 +162,27 @@ const styles = StyleSheet.create({
   img1: {
     height: 230,
     width: "100%",
+  },
+  container1: { borderWidth: 2, borderColor: "#FC8083" },
+  description: { borderWidth: 2, borderColor: "#FC8083" },
+  button: {
+    marginTop: 20,
+    alignItems: "center",
+    justifyContent: "center",
+    borderWidth: 2,
+    borderColor: "#29b6be",
+    height: 55,
+    borderRadius: 4,
+    backgroundColor: "#29b6be",
+  },
+  button1: {
+    marginTop: 50,
+    alignItems: "center",
+    justifyContent: "center",
+    borderWidth: 2,
+    borderColor: "#29b6be",
+    height: 55,
+    borderRadius: 4,
+    backgroundColor: "white",
   },
 });

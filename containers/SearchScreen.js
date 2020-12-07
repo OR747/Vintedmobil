@@ -114,7 +114,7 @@ export default function SearchScreen({ setData, data }) {
                 </View>
               );
             }}
-            // keyExtractor={(item) => item._id}
+            keyExtractor={(item) => item._id}
           />
         </View>
       </ScrollView>

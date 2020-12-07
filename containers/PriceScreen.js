@@ -95,7 +95,7 @@ export default function PriceScreen({ setData }) {
               marginTop: 20,
             }}
           >
-            Trier par
+            Trie par
           </Text>
         </View>
 
