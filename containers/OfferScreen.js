@@ -89,7 +89,7 @@ export default function OfferScreen({ route }) {
             )}
           </View>
           <View style={styles.owner}>
-            <Text style={{ color: "black", fontSize: 16 }}>
+            <Text style={{ color: "black", fontSize: 16, marginBottom: 5 }}>
               {data.owner.account.username}
             </Text>
             <View style={styles.stars}>

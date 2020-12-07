@@ -47,9 +47,14 @@ export default function SearchScreen({ setData, data }) {
           style={{ height: 45, width: 75 }}
         ></Image>
       </View>
-      <View style={styles.text}>
+      {/* <View style={styles.text}>
         <Text style={{ fontSize: 24, color: "gray" }}>Recherches</Text>
-      </View>
+      </View> */}
+      <TouchableOpacity style={styles.touch} onPress={fetchData}>
+        <View style={styles.text}>
+          <Text style={{ fontSize: 24, color: "gray" }}>Recherches</Text>
+        </View>
+      </TouchableOpacity>
       <View style={styles.container1}>
         <Button
           color="gray"
