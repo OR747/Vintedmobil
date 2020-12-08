@@ -28,7 +28,7 @@ export default function ProfilScreen({ setToken, userId }) {
   const [password, setPassword] = useState("");
   const [isLoading, setIsLoading] = useState(true);
   const [picture, setPicture] = useState(null);
-
+  const [numbOffer, setNumbOffer] = useState();
   //New data
 
   const [newEmail, setNewEmail] = useState("");
@@ -50,22 +50,24 @@ export default function ProfilScreen({ setToken, userId }) {
       console.log(userId);
       console.log(token);
 
-      // const response = await axios.get(
-      //   `https://lereacteur-vinted-api.herokuapp.com/user/${userId}`,
-      //   {
-      //     headers: {
-      //       Authorization: "Bearer " + token,
-      //     },
-      //   }
-      // );
-      // console.log(response.data);
-      // setUsername(response.data.username);
-      // setEmail(response.data.email);
-      // setPassword(response.data.password);
+      const response = await axios.get(
+        //   `https://lereacteur-vinted-api.herokuapp.com/user/${userId}`,
+        `http://localhost:3000/user/${userId}`,
+        {
+          headers: {
+            Authorization: "Bearer " + token,
+          },
+        }
+      );
+      console.log(response.data);
+      setUsername(response.data.username);
+      setEmail(response.data.email);
+      setPassword(response.data.password);
+      setNumbOffer(response.data.numbOffer);
 
-      // setNewUsername(response.data.username);
-      // setNewEmail(response.data.email);
-      // setNewPassword(response.data.password);
+      setNewUsername(response.data.username);
+      setNewEmail(response.data.email);
+      setNewPassword(response.data.password);
 
       // if (response.data.photo) {
       //   setPicture(response.data.photo.url);
@@ -79,124 +81,123 @@ export default function ProfilScreen({ setToken, userId }) {
   };
   // //update informations
 
-  // const editInformations = async () => {
-  //   setIsLoading(true);
+  const editInformations = async () => {
+    setIsLoading(true);
 
-  //   if (
-  //     newEmail !== email ||
-  //     newUsername !== username ||
-  //     newPassword !== password ||
-  //     newPicture !== picture
-  //   ) {
-  //     try {
+    if (
+      newEmail !== email ||
+      newUsername !== username ||
+      newPassword !== password ||
+      newPicture !== picture
+    ) {
+      try {
+        //update picture
 
-  // //update picture
+        if (newPicture !== picture) {
+          const uri = newPicture;
+          const uriParts = uri.split(".");
+          const fileType = uriParts[1];
 
-  // if (newPicture !== picture) {
-  //   const uri = newPicture;
-  //   const uriParts = uri.split(".");
-  //   const fileType = uriParts[1];
+          const formData = new FormData();
+          formData.append("picture", {
+            uri,
+            name: `userPicture`,
+            type: `image/${fileType}`,
+          });
+          const token = await AsyncStorage.getItem("userToken");
 
-  //   const formData = new FormData();
-  //   formData.append("photo", {
-  //     uri,
-  //     name: `userPicture`,
-  //     type: `image/${fileType}`,
-  //   });
-  //   const token = await AsyncStorage.getItem("userToken");
+          const response = await axios.put(
+            `https://lereacteur-vinted-api.herokuapp.com/user/upload_picture`,
 
-  //   const response = await axios.put(
-  //     `https://lereacteur-vinted-api.herokuapp.com/user/upload_picture`,
+            formData,
+            {
+              headers: {
+                Authorization: "Bearer " + token,
+              },
+            }
+          );
+          console.log(response.data);
+          if (response.data) {
+            setPicture(response.data.photo[0].url);
+            setIsLoading(false);
+          }
+        }
 
-  //     formData,
-  //     {
-  //       headers: {
-  //         Authorization: "Bearer " + token,
-  //       },
-  //     }
-  //   );
-  //   console.log(response.data);
-  //   if (response.data) {
-  //     setPicture(response.data.photo[0].url);
-  //     setIsLoading(false);
-  //   }
-  // }
+        // update email / username / password
 
-  // update email / username / password
+        if (
+          newEmail !== email ||
+          newUsername !== username ||
+          newPassword !== password
+        ) {
+          const obj = {};
+          if (newEmail !== email) {
+            obj.email = newEmail;
+          }
+          if (newUsername !== username) {
+            obj.username = newUsername;
+          }
+          if (newPassword !== password) {
+            obj.password = newPassword;
+          }
 
-  //       if (
-  //         newEmail !== email ||
-  //         newUsername !== username ||
-  //         newPassword !== password
-  //       ) {
-  //         const obj = {};
-  //         if (newEmail !== email) {
-  //           obj.email = newEmail;
-  //         }
-  //         if (newUsername !== username) {
-  //           obj.username = newUsername;
-  //         }
-  //         if (newPassword !== password) {
-  //           obj.password = newPassword;
-  //         }
-  //         const token = await AsyncStorage.getItem("userToken");
+          const token = await AsyncStorage.getItem("userToken");
 
-  //         const response = await axios.put(
-  //           `https://lereacteur-vinted-api.herokuapp.com/update`,
+          const response = await axios.put(
+            `https://lereacteur-vinted-api.herokuapp.com/update`,
 
-  //           obj,
-  //           {
-  //             headers: {
-  //               Authorization: "Bearer " + token,
-  //             },
-  //           }
-  //         );
+            obj,
+            {
+              headers: {
+                Authorization: "Bearer " + token,
+              },
+            }
+          );
 
-  //         if (response.data) {
-  //           setUsername(response.data.username);
-  //           setEmail(response.data.email);
-  //           setDescription(response.data.password);
-  //         } else {
-  //           setDisplayMessage({
-  //             message: "An error occurred",
-  //             color: "error",
-  //           });
-  //         }
-  //       }
+          if (response.data) {
+            setUsername(response.data.username);
+            setEmail(response.data.email);
+          } else {
+            setDisplayMessage({
+              message: "An error occurred",
+              color: "error",
+            });
+          }
+        }
 
-  //       setDisplayMessage({
-  //         message: "Your profile has been updated",
-  //         color: "success",
-  //       });
-  //       setIsLoading(false);
-  //     } catch (error) {
-  //       setDisplayMessage({
-  //         message: "error",
-  //         color: "error",
-  //       });
-  //       setIsLoading(false);
-  //       fetchData();
-  //     }
-  //   } else {
-  //     setDisplayMessage({
-  //       message: "Please change at least one information",
-  //       color: "error",
-  //     });
-  //     setIsLoading(false);
-  //   }
-  // };
+        setDisplayMessage({
+          message: "Your profile has been updated",
+          color: "success",
+        });
+        setIsLoading(false);
+      } catch (error) {
+        setDisplayMessage({
+          message: "error",
+          color: "error",
+        });
+        setIsLoading(false);
+        fetchData();
+      }
+    } else {
+      setDisplayMessage({
+        message: "Please change at least one information",
+        color: "error",
+      });
+      setIsLoading(false);
+    }
+  };
   // get picture from image library
 
-  // const uploadPicture = async () => {
-  //   const { status } = await Permissions.askAsync(Permissions.CAMERA_ROLL);
-  //   if (status === "granted") {
-  //     const result = await ImagePicker.launchImageLibraryAsync();
-  //     if (!result.cancelled) {
-  //       setNewPicture(result.uri);
-  //     }
-  //   }
-  //   setDisplayMessage(false);
-  // };
+  const uploadPicture = async () => {
+    const { status } = await Permissions.askAsync(Permissions.CAMERA_ROLL);
+    if (status === "granted") {
+      const result = await ImagePicker.launchImageLibraryAsync();
+      if (!result.cancelled) {
+        setNewPicture(result.uri);
+      }
+    }
+    setDisplayMessage(false);
+  };
 
   // get picture from camera
 
@@ -215,7 +216,7 @@ export default function ProfilScreen({ setToken, userId }) {
     <ActivityIndicator size="large" color="#29b6be" />
   ) : (
     <ScrollView style={styles.container}>
-      {/* <View style={styles.topView}>
+      <View style={styles.topView}>
         <TouchableOpacity style={styles.pictureView}>
           {newPicture ? (
             <Image
@@ -244,7 +245,7 @@ export default function ProfilScreen({ setToken, userId }) {
             <FontAwesome5 name="camera" size={30} color={colors.grey} />
           </TouchableOpacity>
         </View>
-      </View> */}
+      </View>
 
       <View style={styles.input1}>
         <TextInput
@@ -273,6 +274,15 @@ export default function ProfilScreen({ setToken, userId }) {
           }}
         />
       </View>
+      <View style={styles.input2}>
+        <TextInput
+          placeholder="nombre d'annonces"
+          value={numbOffer}
+          onChangeText={(number) => {
+            setNumbOffer(number);
+          }}
+        />
+      </View>
 
       <View style={styles.view}>
         {displayMessage && (
@@ -282,9 +292,9 @@ export default function ProfilScreen({ setToken, userId }) {
           />
         )}
       </View>
-      {/* <View style={styles.button0}>
-        <Button title="Update" color="black" onPress={editInformations} />
-      </View> */}
+      <View style={styles.button0}>
+        <Button title="Update" color="gray" onPress={editInformations} />
+      </View>
       <View style={styles.button}>
         <Button
           title="Log Out"
@@ -312,14 +322,15 @@ const styles = StyleSheet.create({
     borderRadius: 170,
     alignItems: "center",
     justifyContent: "center",
-    borderColor: colors.lightPink,
+    borderColor: "#29b6be",
     borderWidth: 2,
   },
   topView: {
     flexDirection: "row",
     justifyContent: "center",
     alignItems: "center",
-    marginBottom: 30,
+    // marginBottom: 30,
+    marginTop: 50,
   },
   icons: {
     marginLeft: 20,
@@ -333,7 +344,7 @@ const styles = StyleSheet.create({
   //inputs//
 
   input1: {
-    marginTop: 350,
+    marginTop: 30,
     borderBottomColor: "#29b6be",
     borderBottomWidth: 2,
   },
@@ -344,18 +355,14 @@ const styles = StyleSheet.create({
   },
 
   button0: {
-    backgroundColor: "white",
-
-    width: 210,
-    height: 65,
-    marginTop: 30,
+    marginTop: 40,
     alignItems: "center",
-    borderRadius: 90,
-    marginLeft: 105,
-    borderWidth: 2,
-    borderColor: "#FC8083",
     justifyContent: "center",
-    alignContent: "center",
+    borderWidth: 2,
+    borderColor: "#29b6be",
+    height: 55,
+    borderRadius: 4,
+    backgroundColor: "white",
   },
   button: {
     marginTop: 40,
