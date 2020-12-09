@@ -50,28 +50,29 @@ export default function ProfilScreen({ setToken, userId }) {
       console.log(userId);
       console.log(token);
 
-      const response = await axios.get(
-        //   `https://lereacteur-vinted-api.herokuapp.com/user/${userId}`,
-        `http://localhost:3000/user/${userId}`,
-        {
-          headers: {
-            Authorization: "Bearer " + token,
-          },
-        }
-      );
-      console.log(response.data);
-      setUsername(response.data.username);
-      setEmail(response.data.email);
-      setPassword(response.data.password);
-      setNumbOffer(response.data.numbOffer);
+      // const response = await axios.get(
+      //   `https://lereacteur-vinted-api.herokuapp.com/user/${userId}`,
+      //   // `http://localhost:3000/user/${userId}`,
+      //   {
+      //     headers: {
+      //       Authorization: "Bearer " + token,
+      //     },
+      //   }
+      // );
+      // console.log(response.data);
+      // console.log(response.data.password);
+      // setUsername(response.data.username);
+      // setEmail(response.data.email);
+      // // setPassword(response.data.password);
+      // setNumbOffer(response.data.numbOffer);
 
-      setNewUsername(response.data.username);
-      setNewEmail(response.data.email);
-      setNewPassword(response.data.password);
+      // setNewUsername(response.data.username);
+      // setNewEmail(response.data.email);
+      // setNewPassword(response.data.password);
 
-      // if (response.data.photo) {
-      //   setPicture(response.data.photo.url);
-      //   setNewPicture(response.data.photo.url);
+      // if (response.data.owner.account) {
+      //   setPicture(response.data.owner.account.avatar.url);
+      //   setNewPicture(response.data.owner.account.avatar.url);
       // }
 
       setIsLoading(false);
@@ -106,16 +107,16 @@ export default function ProfilScreen({ setToken, userId }) {
           });
           const token = await AsyncStorage.getItem("userToken");
 
-          const response = await axios.put(
-            `https://lereacteur-vinted-api.herokuapp.com/user/upload_picture`,
+          // const response = await axios.put(
+          //   `https://lereacteur-vinted-api.herokuapp.com/user/upload_picture`,
 
-            formData,
-            {
-              headers: {
-                Authorization: "Bearer " + token,
-              },
-            }
-          );
+          //   formData,
+          //   {
+          //     headers: {
+          //       Authorization: "Bearer " + token,
+          //     },
+          //   }
+          // );
           console.log(response.data);
           if (response.data) {
             setPicture(response.data.photo[0].url);
@@ -143,16 +144,16 @@ export default function ProfilScreen({ setToken, userId }) {
 
           const token = await AsyncStorage.getItem("userToken");
 
-          const response = await axios.put(
-            `https://lereacteur-vinted-api.herokuapp.com/update`,
+          // const response = await axios.post(
+          //   `https://lereacteur-vinted-api.herokuapp.com/update`,
 
-            obj,
-            {
-              headers: {
-                Authorization: "Bearer " + token,
-              },
-            }
-          );
+          //   obj,
+          //   {
+          //     headers: {
+          //       Authorization: "Bearer " + token,
+          //     },
+          //   }
+          // );
 
           if (response.data) {
             setUsername(response.data.username);
@@ -270,7 +271,7 @@ export default function ProfilScreen({ setToken, userId }) {
           placeholder="password"
           value={password}
           onChangeText={(text) => {
-            setUserPassword(text);
+            setPassword(text);
           }}
         />
       </View>
@@ -323,20 +324,27 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     borderColor: "#29b6be",
-    borderWidth: 2,
+    borderWidth: 0.5,
   },
   topView: {
-    flexDirection: "row",
+    // flexDirection: "row",
     justifyContent: "center",
     alignItems: "center",
     // marginBottom: 30,
     marginTop: 50,
   },
   icons: {
+    flexDirection: "row",
     marginLeft: 20,
+    // borderWidth: 2,
+    // borderColor: "#FC8083",
+    width: "100%",
+    justifyContent: "space-around",
+    alignItems: "center",
+    // marginTop: 20,
   },
   iconButton: {
-    marginTop: 40,
+    // marginTop: 40,
   },
   view: {
     height: 30,

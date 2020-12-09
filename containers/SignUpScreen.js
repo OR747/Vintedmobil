@@ -59,8 +59,18 @@ export default function SignUpScreen({ setToken, setId }) {
 
   return (
     <View style={styles.container0}>
+      <View style={styles.logo}>
+        <Image
+          source={require("../assets/logoVinted.jpg")}
+          resizeMode="cover"
+          style={{ height: 45, width: 75 }}
+        ></Image>
+      </View>
+      <View style={styles.text}>
+        <Text style={{ fontSize: 24, color: "gray" }}>S'inscrire</Text>
+      </View>
       <KeyboardAwareScrollView>
-        <View>
+        <View style={{ marginTop: 80 }}>
           <View style={styles.input1}>
             <TextInput
               placeholder="Nom d'utilisateur"
@@ -119,12 +129,19 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "white",
     //justifyContent: "center",
-    marginTop: 90,
+    // marginTop: 90,
     paddingHorizontal: 15,
     // alignContent: "center",
     // justifyContent: "center",
   },
-
+  logo: {
+    height: 55,
+    width: "100%",
+    // borderWidth: 2,
+    // borderColor: "#FC8083",
+    alignItems: "center",
+    marginTop: +40,
+  },
   input1: {
     marginTop: 50,
     borderBottomColor: "#D7D7D7",

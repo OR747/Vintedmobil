@@ -21,6 +21,7 @@ export default function HomeScreen() {
     try {
       const response = await axios.get(
         "https://lereacteur-vinted-api.herokuapp.com/offers"
+        // "http://localhost:3000/offer",
       );
       // console.log(response.data);
 

@@ -34,6 +34,7 @@ export default function OfferScreen({ route }) {
     try {
       const response = await axios.get(
         `https://lereacteur-vinted-api.herokuapp.com/offer/${params.id}`
+        // `http://localhost:3000/offer/${params.id}`
       );
       //console.log(response.data);
       setData(response.data);

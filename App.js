@@ -24,11 +24,10 @@ import LoginScreen from "./containers/LoginScreen";
 import SignUpScreen from "./containers/SignUpScreen";
 import OfferScreen from "./containers/OfferScreen";
 import SearchScreen from "./containers/SearchScreen";
-import SortScreen from "./containers/SortScreen";
 import PublishScreen from "./containers/PublishScreen";
 import ProfilScreen from "./containers/ProfilScreen";
 import PriceScreen from "./containers/PriceScreen";
-
+import LooserScreen from "./containers/LooserScreen";
 //StackNavigator and BottomNavigator
 
 const Tab = createBottomTabNavigator();
@@ -99,6 +98,12 @@ export default function App() {
             options={{ header: () => null, animationEnabled: false }}
           >
             {() => <LoginScreen setToken={setToken} setId={setId} />}
+          </Stack.Screen>
+          <Stack.Screen
+            name="Looser"
+            options={{ header: () => null, animationEnabled: false }}
+          >
+            {() => <LooserScreen />}
           </Stack.Screen>
         </Stack.Navigator>
       ) : (

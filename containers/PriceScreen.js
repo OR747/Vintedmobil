@@ -68,6 +68,7 @@ export default function PriceScreen({ setData }) {
     try {
       const response = await axios.get(
         `https://lereacteur-vinted-api.herokuapp.com/offers${filters}`
+        // `http://localhost:3000/offer/${filters}`
       );
       // console.log(response.data.offers);
       setData(response.data);

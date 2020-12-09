@@ -22,6 +22,7 @@ export default function SearchScreen({ setData, data }) {
     try {
       const response = await axios.get(
         "https://lereacteur-vinted-api.herokuapp.com/offers"
+        //  "http://localhost:3000/offers"
       );
       //console.log(response.data);
 
@@ -129,7 +130,7 @@ export default function SearchScreen({ setData, data }) {
                 </TouchableOpacity>
               );
             }}
-            keyExtractor={(item) => item._id}
+            // keyExtractor={(item) => item._id}
           />
         </View>
       </ScrollView>

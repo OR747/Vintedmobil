@@ -7,6 +7,7 @@ import {
   View,
   TouchableOpacity,
   StyleSheet,
+  Image,
 } from "react-native";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import axios from "axios";
@@ -60,8 +61,18 @@ export default function LoginScreen({ setToken, setId }) {
 
   return (
     <View style={styles.container}>
+      <View style={styles.logo}>
+        <Image
+          source={require("../assets/logoVinted.jpg")}
+          resizeMode="cover"
+          style={{ height: 45, width: 75 }}
+        ></Image>
+      </View>
+      <View style={styles.text}>
+        <Text style={{ fontSize: 24, color: "gray" }}>Se connecter</Text>
+      </View>
       <KeyboardAwareScrollView>
-        <View>
+        <View style={{ marginTop: 200 }}>
           <View style={styles.input1}>
             <TextInput
               placeholder="Identifiant ou adresse email"
@@ -89,7 +100,7 @@ export default function LoginScreen({ setToken, setId }) {
           <View style={styles.touch}>
             <TouchableOpacity
               onPress={() => {
-                navigation.navigate("SignUp");
+                navigation.navigate("Looser");
               }}
             >
               <Text style={styles.touchstyle}>
@@ -109,9 +120,16 @@ const styles = StyleSheet.create({
     //justifyContent: "center",
     paddingHorizontal: 15,
   },
+  logo: {
+    height: 55,
+    width: "100%",
+    // borderWidth: 2,
+    // borderColor: "#FC8083",
+    alignItems: "center",
+    marginTop: +40,
+  },
 
   input1: {
-    marginTop: 120,
     borderBottomColor: "#D7D7D7",
     borderBottomWidth: 1,
   },

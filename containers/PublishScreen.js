@@ -11,13 +11,12 @@ import {
 } from "react-native";
 import { ScrollView } from "react-native-gesture-handler";
 import axios from "axios";
-import AsyncStorage from "@react-native-community/async-storage";
 import { FontAwesome5, MaterialIcons } from "@expo/vector-icons";
 import colors from "../assets/colors";
 import * as ImagePicker from "expo-image-picker";
 import * as Permissions from "expo-permissions";
 
-export default function PublishScreen({ setToken, userId, userToken }) {
+export default function PublishScreen({ userToken }) {
   console.log(userToken);
   const [title, setTitle] = useState("test");
   const [description, setDescription] = useState("test");
@@ -55,7 +54,8 @@ export default function PublishScreen({ setToken, userId, userToken }) {
       //console.log(formData);
 
       const response = await axios.post(
-        `https://lereacteur-vinted-api.herokuapp.com/offer/publish`,
+        // `https://lereacteur-vinted-api.herokuapp.com/offer/publish`,
+        "http://localhost:3000/offer/publish",
         formData,
         {
           headers: {
@@ -259,9 +259,9 @@ const styles = StyleSheet.create({
   text: { borderBottomWidth: 1, borderBottomColor: "gray" },
   //images et photos
   picture: {
-    height: 150,
-    width: 150,
-    borderRadius: 150,
+    height: 250,
+    width: 250,
+    // borderRadius: 150,
   },
   pictureView: {
     // marginVertical: 10,
