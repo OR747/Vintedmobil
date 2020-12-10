@@ -2,8 +2,9 @@ import React from "react";
 import { useNavigation } from "@react-navigation/core";
 import { Text, View, TouchableOpacity, Image, StyleSheet } from "react-native";
 
-export default function HomeLoginScreen() {
+export default function LooserScreen() {
   const navigation = useNavigation();
+
   return (
     <View style={styles.container}>
       <View style={styles.logo}>

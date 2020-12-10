@@ -15,7 +15,7 @@ import axios from "axios";
 export default function LoginScreen({ setToken, setId }) {
   const navigation = useNavigation();
   const [email, setEmail] = useState("");
-  // const [username, setUsername]= useState("");
+  // const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState(null);
 
@@ -27,8 +27,8 @@ export default function LoginScreen({ setToken, setId }) {
       console.log("on passe à la suite");
       try {
         const response = await axios.post(
-          // "https://lereacteur-vinted-api.herokuapp.com/user/login",
-          "http://localhost:3000/user/login",
+          "https://lereacteur-vinted-api.herokuapp.com/user/login",
+          // "http://localhost:3000/user/login",
           {
             email,
 

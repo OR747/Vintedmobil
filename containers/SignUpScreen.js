@@ -27,8 +27,8 @@ export default function SignUpScreen({ setToken, setId }) {
 
       try {
         const response = await axios.post(
-          // "https://lereacteur-vinted-api.herokuapp.com/user/signup",
-          "http://localhost:3000/user/signup",
+          "https://lereacteur-vinted-api.herokuapp.com/user/signup",
+          // "http://localhost:3000/user/signup",
           {
             email,
             username,

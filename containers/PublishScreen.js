@@ -54,8 +54,8 @@ export default function PublishScreen({ userToken }) {
       //console.log(formData);
 
       const response = await axios.post(
-        // `https://lereacteur-vinted-api.herokuapp.com/offer/publish`,
-        "http://localhost:3000/offer/publish",
+        `https://lereacteur-vinted-api.herokuapp.com/offer/publish`,
+        // "http://localhost:3000/offer/publish",
         formData,
         {
           headers: {
